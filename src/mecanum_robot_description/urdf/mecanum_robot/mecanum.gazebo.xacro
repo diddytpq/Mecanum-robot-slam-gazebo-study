@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="laser_visual"  default="false"/>
+  <xacro:arg name="camera_visual" default="false"/>
+  <xacro:arg name="imu_visual"    default="false"/>
+
+
+
+  <xacro:macro name="omni_steering" params="">
+	<gazebo>
+	    <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
+	      <commandTopic>mecanum_vel</commandTopic>
+	      <odometryTopic>odom</odometryTopic>
+	      <odometryFrame>odom</odometryFrame>
+	      <odometryRate>50.0</odometryRate>
+	      <robotBaseFrame>base_footprint</robotBaseFrame>
+	      <publishTF>true</publishTF>
+	    </plugin>
+		<material>Gazebo/DarkGrey</material>
+	</gazebo>
+  </xacro:macro>
+  
+  <!-- ros_control plugin -->
+  <xacro:macro name="ros_control" params="">
+  <gazebo>
+    <plugin name="mecanum_control" filename="libgazebo_ros_control.so">
+      <controlPeriod>0.001</controlPeriod>
+      <robotNamespace>/mecanum</robotNamespace>
+      <!--jointName>front_R_wheel_joint, front_L_wheel_joint, back_R_wheel_joint, back_L_wheel_joint </jointName-->
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <!--legacyModeNS>true</legacyModeNS-->
+    </plugin>
+  </gazebo>
+  </xacro:macro>
+  
+  <xacro:macro name="sensor_gazebo" params="">
+    <gazebo reference="frame">
+      <mu1 value="1.0"/>
+      <mu2 value="1.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <maxVel>0.001</maxVel>
+      <minDepth>0.0001</minDepth>
+      <turnGravityOff>false</turnGravityOff>
+      <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- <gazebo reference="front_R_wheel">
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2> 
+      <kp>1e+13</kp>
+      <kd>1.0</kd>
+      <maxVel>0.001</maxVel>
+      <minDepth>0.00000000001</minDepth>
+      <turnGravityOff>false</turnGravityOff>
+      <gravity>1</gravity>
+      <material>Gazebo/DarkGrey</material>
+  </gazebo> -->
+
+    <gazebo reference="base_scan">
+      <material>Gazebo/FlatBlack</material>
+      <sensor type="ray" name="lds_lfcd_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>$(arg laser_visual)</visualize>
+        <update_rate>5</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>360</samples>
+              <resolution>1</resolution>
+              <min_angle>0.0</min_angle>
+              <max_angle>6.28319</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.120</min>
+            <max>5.5</max>
+            <resolution>0.015</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="gazebo_ros_lds_lfcd_controller" filename="libgazebo_ros_laser.so">
+          <topicName>scan</topicName>
+          <frameName>base_scan</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+
+    <gazebo reference="camera_link">
+      <sensor name="mecanum_camera_ir" type="depth">
+        <update_rate>0</update_rate>
+        <camera>
+          <horizontal_fov>1.3439</horizontal_fov>
+          <image>
+            <width>1280</width>
+            <height>720</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.03</near>
+            <far>100</far>
+          </clip>
+        </camera>
+        <plugin name="mecanum_camera_ir_controller" filename="libgazebo_ros_openni_kinect.so">
+          <baseline>0.2</baseline>
+          <alwaysOn>true</alwaysOn>
+          <update_rate>30</update_rate>
+          <cameraName>mecanum_camera_ir</cameraName>
+          <imageTopicName>mecanum_camera_ir/color/image_raw</imageTopicName>
+          <cameraInfoTopicName>/mecanum_camera_ir/color/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>/mecanum_camera_ir/depth/image_raw</depthImageTopicName>
+          <depthImageInfoTopicName>/mecanum_camera_ir/depth/camera_info</depthImageInfoTopicName>
+          <pointCloudTopicName>/mecanum_camera_ir/depth/points</pointCloudTopicName>
+          <frameName>camera_link</frameName>
+          <pointCloudCutoff>0.1</pointCloudCutoff>
+          <pointCloudCutoffMax>15.0</pointCloudCutoffMax>
+          <distortionK1>0.00000001</distortionK1>
+          <distortionK2>0.00000001</distortionK2>
+          <distortionK3>0.00000001</distortionK3>
+          <distortionT1>0.00000001</distortionT1>
+          <distortionT2>0.00000001</distortionT2>
+          <!-- <CxPrime>0</CxPrime>
+          <Cx>640</Cx>
+          <Cy>360</Cy>
+          <focalLength>639.9976491530514</focalLength> -->
+          <hackBaseline>0</hackBaseline>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+  
+  <!--gazebo>
+   <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+        <arm>
+           <arm_name>omni_manipulator</arm_name>
+           <palm_link> gripper_case  </palm_link>
+           <gripper_link> finger_R </gripper_link>
+           <gripper_link> finger_L </gripper_link>
+           <gripper_link> ... </gripper_link>
+        </arm>
+       <forces_angle_tolerance>100</forces_angle_tolerance>
+       <update_rate>4</update_rate>
+       <grip_count_threshold>4</grip_count_threshold>
+       <max_grip_count>8</max_grip_count>
+       <release_tolerance>0.005</release_tolerance>
+       <disable_collisions_on_attach>false</disable_collisions_on_attach>
+       <contact_topic>__default_topic__</contact_topic>
+    </plugin>
+</gazebo!-->
+
+</robot>
