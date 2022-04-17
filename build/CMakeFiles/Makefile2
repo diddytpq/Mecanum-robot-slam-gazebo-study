@@ -55,6 +55,7 @@ CMAKE_BINARY_DIR = /home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build
 # The main recursive "all" target.
 all: gtest/all
 all: mecanum_robot_gazebo/all
+all: turtlebot3_navigation/all
 all: turtlebot3_simulations/all
 all: mecanum_robot_slam/all
 all: turtlebot3_bringup/all
@@ -70,6 +71,7 @@ all: turtlebot3_description/all
 # The main recursive "preinstall" target.
 preinstall: gtest/preinstall
 preinstall: mecanum_robot_gazebo/preinstall
+preinstall: turtlebot3_navigation/preinstall
 preinstall: turtlebot3_simulations/preinstall
 preinstall: mecanum_robot_slam/preinstall
 preinstall: turtlebot3_bringup/preinstall
@@ -90,6 +92,7 @@ clean: CMakeFiles/tests.dir/clean
 clean: CMakeFiles/download_extra_data.dir/clean
 clean: gtest/clean
 clean: mecanum_robot_gazebo/clean
+clean: turtlebot3_navigation/clean
 clean: turtlebot3_simulations/clean
 clean: mecanum_robot_slam/clean
 clean: turtlebot3_bringup/clean
@@ -365,6 +368,24 @@ turtlebot3_gazebo/clean: turtlebot3_gazebo/CMakeFiles/dynamic_reconfigure_genera
 turtlebot3_gazebo/clean: turtlebot3_gazebo/CMakeFiles/gazebo_msgs_generate_messages_lisp.dir/clean
 
 .PHONY : turtlebot3_gazebo/clean
+
+#=============================================================================
+# Directory level rules for directory turtlebot3_navigation
+
+# Recursive "all" directory target.
+turtlebot3_navigation/all:
+
+.PHONY : turtlebot3_navigation/all
+
+# Recursive "preinstall" directory target.
+turtlebot3_navigation/preinstall:
+
+.PHONY : turtlebot3_navigation/preinstall
+
+# Recursive "clean" directory target.
+turtlebot3_navigation/clean:
+
+.PHONY : turtlebot3_navigation/clean
 
 #=============================================================================
 # Directory level rules for directory turtlebot3_simulations

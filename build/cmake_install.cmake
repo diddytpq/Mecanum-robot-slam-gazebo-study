@@ -132,6 +132,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build/gtest/cmake_install.cmake")
   include("/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_gazebo/cmake_install.cmake")
+  include("/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build/turtlebot3_navigation/cmake_install.cmake")
   include("/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build/turtlebot3_simulations/cmake_install.cmake")
   include("/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_slam/cmake_install.cmake")
   include("/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build/turtlebot3_bringup/cmake_install.cmake")

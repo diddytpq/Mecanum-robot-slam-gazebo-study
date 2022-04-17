@@ -79,6 +79,7 @@ def move_mecanum(linear,angular_z):
 
     twist.linear.x = x_vel
     twist.linear.y = y_vel
+    # twist.linear.z = -9.8
 
     twist.angular.z = angular_z
 

@@ -5,8 +5,15 @@
   <xacro:arg name="imu_visual"    default="false"/>
 
 
-
   <xacro:macro name="omni_steering" params="">
+  <gazebo reference="base_link">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <material>Gazebo/White</material>
+  </gazebo>
+  
 	<gazebo>
 	    <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
 	      <commandTopic>mecanum_vel</commandTopic>
@@ -24,7 +31,7 @@
   <xacro:macro name="ros_control" params="">
   <gazebo>
     <plugin name="mecanum_control" filename="libgazebo_ros_control.so">
-      <controlPeriod>0.001</controlPeriod>
+      <controlPeriod>1</controlPeriod>
       <robotNamespace>/mecanum</robotNamespace>
       <!--jointName>front_R_wheel_joint, front_L_wheel_joint, back_R_wheel_joint, back_L_wheel_joint </jointName-->
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
@@ -34,16 +41,43 @@
   </xacro:macro>
   
   <xacro:macro name="sensor_gazebo" params="">
-    <gazebo reference="frame">
-      <mu1 value="1.0"/>
-      <mu2 value="1.0"/>
-      <kp value="10000000.0" />
-      <kd value="1.0" />
-      <maxVel>0.001</maxVel>
-      <minDepth>0.0001</minDepth>
-      <turnGravityOff>false</turnGravityOff>
-      <material>Gazebo/White</material>
+
+    <!-- <gazebo reference="imu_link">
+      <sensor type="imu" name="imu">
+        <always_on>true</always_on>
+        <visualize>false</visualize>
+      </sensor>
+      <material>Gazebo/Grey</material>
     </gazebo>
+
+    <gazebo>
+      <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+        <alwaysOn>true</alwaysOn>
+        <bodyName>imu_link</bodyName>
+        <frameName>imu_link</frameName>
+        <topicName>imu</topicName>
+        <serviceName>imu_service</serviceName>
+        <gaussianNoise>0.0</gaussianNoise>
+        <updateRate>0</updateRate>
+        <imu>
+          <noise>
+            <type>gaussian</type>
+            <rate>
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </rate>
+            <accel>
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </accel>
+          </noise>
+        </imu>
+      </plugin>
+    </gazebo> -->
 
     <!-- <gazebo reference="front_R_wheel">
       <mu1>1.0</mu1>
