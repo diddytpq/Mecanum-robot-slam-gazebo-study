@@ -3,9 +3,10 @@
   <arg name="x_pos" default="-3.0"/>
   <arg name="y_pos" default="1.0"/>
   <arg name="z_pos" default="0.0"/>
+  <arg name="world_name" default="test" />
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find mecanum_robot_gazebo)/worlds/turtlebot3_house.world"/>
+    <arg name="world_name" value="$(find mecanum_robot_gazebo)/worlds/$(arg world_name).world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
@@ -33,6 +34,8 @@
                                         wheel_2_controller 
                                         wheel_3_controller 
                                         wheel_4_controller"/>
+
+  <node name="mecanum_control_keyboard" pkg="mecanum_robot_gazebo"  type="keyborad_control_sim.py" output="screen"/>
 
   <!-- convert joint states to TF transforms for rviz, etc -->
   <!-- Publish joint values -->
