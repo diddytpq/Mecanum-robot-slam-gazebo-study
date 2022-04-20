@@ -9,15 +9,6 @@
   <arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find mecanum_robot_description)/urdf/mecanum_robot/mecanum.urdf.xacro'" />
   <param name="robot_description" command="$(arg urdf_file)" />
 
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
-
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
-    <param name="robot_description" command="$(arg urdf_file)" />
-    <param name="publish_frequency" type="double" value="50.0" />
-    <param name="tf_prefix" value=""/>
-    <!-- <remap from="/joint_states" to="/mecanum/joint_states" /> -->
-  </node>
-
   <!-- SLAM: Gmapping, Cartographer, Hector, Karto, Frontier_exploration, RTAB-Map -->
   <include file="$(find mecanum_robot_slam)/launch/mecanum_$(arg slam_methods).launch">
     <arg name="model" value="$(arg model)"/>
