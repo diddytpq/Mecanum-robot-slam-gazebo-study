@@ -25,6 +25,8 @@
 	    </plugin>
 		<material>Gazebo/DarkGrey</material>
 	</gazebo>
+
+  
   </xacro:macro>
   
   <!-- ros_control plugin -->
@@ -42,7 +44,7 @@
   
   <xacro:macro name="sensor_gazebo" params="">
 
-    <!-- <gazebo reference="imu_link">
+    <gazebo reference="imu_link">
       <sensor type="imu" name="imu">
         <always_on>true</always_on>
         <visualize>false</visualize>
@@ -77,7 +79,7 @@
           </noise>
         </imu>
       </plugin>
-    </gazebo> -->
+    </gazebo>
 
     <!-- <gazebo reference="front_R_wheel">
       <mu1>1.0</mu1>

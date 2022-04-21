@@ -45,7 +45,8 @@ if __name__ == '__main__':
         linear = [0, 0]
         angular_z = 0
         while(1):
-
+            # apply_gravity()
+            
             key = getKey()
 
             if key == 'w' :

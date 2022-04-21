@@ -12,10 +12,10 @@ from nav_msgs.msg import Odometry
 import time
 from tools.mecanum_utils import *
 
-g_get_state = rospy.ServiceProxy("/gazebo/get_model_state", GetModelState)
+max_vel_forward = 5.5 # m/s
+max_vel_lateral = 1.5 # m/s
 
-max_vel_forward = 1.5 # m/s
-max_vel_lateral = 5.5 # m/s
+g_get_state = rospy.ServiceProxy("/gazebo/get_model_state", GetModelState)
 
 
 def get_position():
@@ -57,6 +57,26 @@ def vel_threshold(x_vel, y_vel):
 
     return x_vel, y_vel
 
+def apply_gravity():
+    wrench = Wrench()
+    duration = 1
+    apply_wrench = rospy.ServiceProxy('/gazebo/apply_body_wrench', ApplyBodyWrench)
+    body_name = 'mecanum::base_footprint'
+
+    wrench.force = Vector3()
+
+    wrench.force.x = 0
+    wrench.force.y = 0
+    wrench.force.z = int(-9.8 / 0.0001)
+
+    success = apply_wrench(
+        body_name,
+        'world',
+        Point(0, 0, 0),
+        wrench,
+        rospy.Time().now(),
+        rospy.Duration(duration))
+
 
 def move_mecanum(linear,angular_z):
 
@@ -79,7 +99,6 @@ def move_mecanum(linear,angular_z):
 
     twist.linear.x = x_vel
     twist.linear.y = y_vel
-    # twist.linear.z = -9.8
 
     twist.angular.z = angular_z
 
