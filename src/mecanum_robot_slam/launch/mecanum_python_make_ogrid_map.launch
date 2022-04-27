@@ -8,7 +8,7 @@
     <arg name="open_rviz" default="true"/>
   
     <!-- Gmapping -->
-    <node name="python_gmapping" pkg="mecanum_robot_slam"  type="gmapping_python_rviz.py" output="screen"/>
+    <node name="python_gmapping" pkg="mecanum_robot_slam"  type="create_ogrid_python.py" output="screen"/>
 
   <!-- rviz -->
   <group if="$(arg open_rviz)"> 

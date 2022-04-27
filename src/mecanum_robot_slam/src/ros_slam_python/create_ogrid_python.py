@@ -15,7 +15,6 @@ sys.path.insert(0, SCRIPTS_PATH)
 
 from grid_map import *
 from utils import *
-from bresenham import *
 
 P_prior = 0.5	# Prior occupancy probability
 P_occ = 0.9	# Probability that cell is occupied with total confidence
@@ -25,7 +24,7 @@ RESOLUTION = 0.05 # Grid resolution in [m]
 
 MAP_NAME  = 'test' # map name without extension
 
-MAP_SIZE = 15
+MAP_SIZE = 25
 
 if __name__ == '__main__':
 

@@ -3,7 +3,7 @@
   <arg name="x_pos" default="-3.0"/>
   <arg name="y_pos" default="1.0"/>
   <arg name="z_pos" default="0.0"/>
-  <arg name="world_name" default="test" />
+  <arg name="world_name" default="house" />
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find mecanum_robot_gazebo)/worlds/$(arg world_name).world"/>
@@ -42,9 +42,10 @@
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
-    <!-- <param name="robot_description" command="$(arg urdf_file)" /> -->
     <param name="publish_frequency" type="double" value="50.0" />
     <param name="tf_prefix" value=""/>
+    <remap from="/joint_states" to="/mecanum/joint_states" />
   </node>
+  
 
 </launch>
