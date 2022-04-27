@@ -39,5 +39,11 @@ def get_tf_map_odom():
 
 rospy.init_node('trans_tf', anonymous = False)
 
-while True:
-    get_tf_map_odom()
+
+if __name__ == "__main__":
+
+    try :
+        while not rospy.is_shutdown():
+            get_tf_map_odom()
+    except rospy.ROSInterruptException:
+        pass
