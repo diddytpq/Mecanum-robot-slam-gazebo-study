@@ -1,12 +1,13 @@
 import rospy
 import numpy as np
+from geometry_msgs.msg import PoseStamped, PoseArray, Point, Quaternion, Pose
 from sensor_msgs.msg import LaserScan
 from nav_msgs.msg import Odometry, OccupancyGrid, MapMetaData
 import message_filters
 from particle import Particle
 from scipy import misc
 from copy import deepcopy
-from tf.transformations import euler_from_quaternion
+from tf.transformations import euler_from_quaternion, quaternion_from_euler
 import cv2
 
 import sys
@@ -43,6 +44,8 @@ class Localizator:
 
         self.frist_map_flag = 1
 
+        self.pose_array_pub = rospy.Publisher("particlecloud", PoseArray, 10)
+
         self.odom_sub = rospy.Subscriber("odom", Odometry, self.odom_callback)
         self.laser_sub = rospy.Subscriber("scan", LaserScan, self.laser_callback)
         self.ogrid_sub = rospy.Subscriber("map", OccupancyGrid, self.ogrid_callback)
@@ -64,7 +67,11 @@ class Localizator:
             self.ogrid_map = ogrid
             self.ogrid_width = ogrid.info.width
             self.ogrid_height = ogrid.info.height
-            self.ogrid_map_np = np.array((self.ogrid_map)).reshape(self.ogrid_height,self.ogrid_width)
+
+            self.ogrid_origin_x = self.ogrid_map.info.origin.position.x
+            self.ogrid_origin_y = self.ogrid_map.info.origin.position.y
+
+            self.ogrid_map_np = np.array((ogrid.data)).reshape(self.ogrid_height,self.ogrid_width)
 
         self.frist_map_flag = 0
 
@@ -80,21 +87,23 @@ class Localizator:
             quaternion_last = [q_last.x, q_last.y, q_last.z, q_last.w]
             roll,pitch,yaw_last = euler_from_quaternion(quaternion_last)
 
-            rot_1 = np.arctan2(self.odom_msg.pose.pose.position.y-self.last_odom.pose.pose.position.y, self.odom_msg.pose.pose.position.x - self.last_odom.pose.pose.position.x)
-            trans = np.sqrt((self.odom_msg.pose.pose.position.x - self.last_odom.pose.pose.position.x) ** 2 + (self.odom_msg.pose.pose.position.y - self.last_odom.pose.pose.position.y))
+            rot_1 = np.arctan2(self.odom_msg.pose.pose.position.y-self.last_odom.pose.pose.position.y, self.odom_msg.pose.pose.position.x - self.last_odom.pose.pose.position.x) - yaw_last
+            trans = np.sqrt((self.odom_msg.pose.pose.position.x - self.last_odom.pose.pose.position.x) ** 2 + (self.odom_msg.pose.pose.position.y - self.last_odom.pose.pose.position.y) ** 2)
             rot_2 = yaw - yaw_last - rot_1
 
             for i in range(self.num_of_particles):
                 new_width = self.particles[i].get_width() + trans * np.cos(self.particles[i].get_yaw() + rot_1)
-                self.particles[i].set_width(new_width)
                 new_height = self.particles[i].get_height() + trans * np.sin(self.particles[i].get_yaw() + rot_1)
-                self.particles[i].set_height(new_height)
                 new_yaw = self.particles[i].get_yaw() + rot_1 + rot_2
+
+                self.particles[i].set_width(new_width)
+                self.particles[i].set_height(new_height)
                 self.particles[i].set_yaw(new_yaw)
 
-                if abs(new_width) > abs(self.ogrid_map.info.origin.position.x) or \
-                    abs(new_height) > abs(self.ogrid_map.info.origin.position.y) or \
-                    np.all(self.ogrid_map_np[int(new_height * self.meter_to_pixel)][int(new_width * self.meter_to_pixel)] >= 100):
+                if abs(new_width) > abs(self.ogrid_origin_x) or \
+                    abs(new_height) > abs(self.ogrid_origin_y) or \
+                    np.all(self.ogrid_map_np[int((10 + new_height) * self.meter_to_pixel)][int((-10 + new_width) * self.meter_to_pixel)] > 99):
+                    # np.all(self.ogrid_map_np[int(new_height * self.meter_to_pixel)][int(new_width * self.meter_to_pixel)] > 99):     
                     remove_indices.append(i)
 
             self.last_odom = self.odom_msg
@@ -103,6 +112,7 @@ class Localizator:
             self.particles.pop(i - cnt)
             cnt += 1
             self.num_of_particles -= 1  
+        print(self.num_of_particles)
                 
     def particle_likelihood(self, particle):
         similarity = 0
@@ -140,12 +150,14 @@ class Localizator:
     def sample_particles(self):
         for i in range(self.num_of_particles):
             while True:
-                particle_width = int(np.random.uniform(0, self.map_width))
-                particle_height = int(np.random.uniform(0, self.map_height))
-                particle_yaw = (np.random.uniform(-np.pi, np.pi))
+                if self.frist_map_flag == 0 :
+                    particle_width = int(np.random.uniform(-abs(self.ogrid_origin_x), abs(self.ogrid_origin_x)))
+                    particle_height = int(np.random.uniform(-abs(self.ogrid_origin_y), abs(self.ogrid_origin_y)))
 
-                if np.any(self.map[particle_height][particle_width] != 2550):
-                    break
+                    particle_yaw = (np.random.uniform(-np.pi, np.pi))
+
+                    if np.any(self.map[particle_height][particle_width] != 2550):
+                        break
             particle = Particle(particle_width, particle_height, particle_yaw)
             self.particles.append(particle)     
             
@@ -185,16 +197,32 @@ class Localizator:
             self.sum_of_weights += particle_weight
     
     def print_particles(self, particles):
-        number_of_particles_per_pixel = {}        
+        # number_of_particles_per_pixel = {}  
+        pose_arr = PoseArray()
+        pose_arr.header.frame_id = 'map'
+
         for particle in particles:
-            height_in_pixels = int(particle.get_height() * self.meter_to_pixel)
-            width_in_pixels  = int(particle.get_width()  * self.meter_to_pixel)
-            index = height_in_pixels * self.map_width + width_in_pixels
-            number_of_particles_per_pixel[index] = number_of_particles_per_pixel.get(index, 0) + particle.get_cnt()
+            particle_pos = PoseStamped()
+            particle_pos.header.stamp = rospy.Time.now()
+            particle_pos.header.frame_id = 'map'
+            
+            # height_in_pixels = int(particle.get_height() * self.meter_to_pixel)
+            # width_in_pixels  = int(particle.get_width()  * self.meter_to_pixel)
+            # index = height_in_pixels * self.map_width + width_in_pixels
+            # number_of_particles_per_pixel[index] = number_of_particles_per_pixel.get(index, 0) + particle.get_cnt()
+
+            q = quaternion_from_euler(0,0,particle.get_yaw())
+
+            particle_pos.pose = Pose(Point(particle.get_width(), particle.get_height(), 0),\
+                                     Quaternion(q[0], q[1], q[2], q[3]))
+            pose_arr.header = particle_pos.header
+            pose_arr.poses.append(particle_pos.pose)
+
+
 
             # print(height_in_pixels,width_in_pixels)
-            print(particle.get_height(),particle.get_width(), np.rad2deg(particle.get_yaw()))
-
+            # print(particle.get_height(),particle.get_width(), np.rad2deg(particle.get_yaw()))
+        self.pose_array_pub.publish(pose_arr)
         print("---------------------------------")
 
     def particle_filter(self):

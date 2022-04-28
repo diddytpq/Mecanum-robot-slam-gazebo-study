@@ -2,7 +2,7 @@
   <!-- Arguments -->
   <arg name="model" default="mecanum"/>
   <arg name="multi_robot_name" default=""/>
-  <arg name="map_file" default="$(find mecanum_robot_slam)/maps/house/house.yaml"/>
+  <arg name="map_file" default="$(find mecanum_robot_slam)/maps/house/map.yaml"/>
   <arg name="configuration_basename" default="turtlebot3_lds_2d.lua"/>
   <arg name="open_rviz" default="true"/>
 

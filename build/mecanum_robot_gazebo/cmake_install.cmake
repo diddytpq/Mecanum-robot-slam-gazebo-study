@@ -1,8 +1,8 @@
-# Install script for directory: /home/yoseph/worckspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_gazebo
+# Install script for directory: /home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_gazebo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/install")
+  set(CMAKE_INSTALL_PREFIX "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_gazebo/catkin_generated/installspace/mecanum_robot_gazebo.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_gazebo/catkin_generated/installspace/mecanum_robot_gazebo.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mecanum_robot_gazebo/cmake" TYPE FILE FILES
-    "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_gazebo/catkin_generated/installspace/mecanum_robot_gazeboConfig.cmake"
-    "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_gazebo/catkin_generated/installspace/mecanum_robot_gazeboConfig-version.cmake"
+    "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_gazebo/catkin_generated/installspace/mecanum_robot_gazeboConfig.cmake"
+    "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_gazebo/catkin_generated/installspace/mecanum_robot_gazeboConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mecanum_robot_gazebo" TYPE FILE FILES "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_gazebo/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mecanum_robot_gazebo" TYPE FILE FILES "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_gazebo/package.xml")
 endif()
 

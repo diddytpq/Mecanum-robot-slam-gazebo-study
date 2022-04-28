@@ -8,8 +8,9 @@ Panels:
         - /Status1
         - /Grid1
         - /Map1
-        - /Map1/Status1
         - /LaserScan1
+        - /PoseArray1
+        - /PoseArray1/Status1
       Splitter Ratio: 0.5
     Tree Height: 647
   - Class: rviz/Selection
@@ -154,6 +155,23 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
+    - Alpha: 1
+      Arrow Length: 0.30000001192092896
+      Axes Length: 0.30000001192092896
+      Axes Radius: 0.009999999776482582
+      Class: rviz/PoseArray
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.07000000029802322
+      Head Radius: 0.029999999329447746
+      Name: PoseArray
+      Queue Size: 10
+      Shaft Length: 0.23000000417232513
+      Shaft Radius: 0.009999999776482582
+      Shape: Arrow (Flat)
+      Topic: /particlecloud
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -182,7 +200,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 36.23428726196289
+      Distance: 14.983774185180664
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -190,17 +208,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -6.7205400466918945
-        Y: -3.2561569213867188
-        Z: 4.339409351348877
+        X: -4.898097991943359
+        Y: -1.332422137260437
+        Z: 5.721651077270508
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5503981113433838
+      Pitch: 1.2903976440429688
       Target Frame: <Fixed Frame>
-      Yaw: 3.545398712158203
+      Yaw: 3.4703965187072754
     Saved: ~
 Window Geometry:
   Displays:

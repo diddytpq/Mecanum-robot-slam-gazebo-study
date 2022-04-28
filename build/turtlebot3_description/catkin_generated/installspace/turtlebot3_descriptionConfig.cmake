@@ -67,14 +67,14 @@ set(turtlebot3_description_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(turtlebot3_description_SOURCE_PREFIX /home/yoseph/worckspace/Mecanum-robot-slam-gazebo/src/turtlebot3_description)
-  set(turtlebot3_description_DEVEL_PREFIX /home/yoseph/worckspace/Mecanum-robot-slam-gazebo/devel)
+  set(turtlebot3_description_SOURCE_PREFIX /home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_description)
+  set(turtlebot3_description_DEVEL_PREFIX /home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/devel)
   set(turtlebot3_description_INSTALL_PREFIX "")
   set(turtlebot3_description_PREFIX ${turtlebot3_description_DEVEL_PREFIX})
 else()
   set(turtlebot3_description_SOURCE_PREFIX "")
   set(turtlebot3_description_DEVEL_PREFIX "")
-  set(turtlebot3_description_INSTALL_PREFIX /home/yoseph/worckspace/Mecanum-robot-slam-gazebo/install)
+  set(turtlebot3_description_INSTALL_PREFIX /home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/install)
   set(turtlebot3_description_PREFIX ${turtlebot3_description_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/yoseph/worckspace/Mecanum-robot-slam-gazebo/install/lib;/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

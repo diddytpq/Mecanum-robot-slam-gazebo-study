@@ -6,7 +6,7 @@
     <arg name="set_odom_frame" default="odom"/>
     <arg name="set_map_frame"  default="map"/>
     <arg name="open_rviz" default="true"/>
-    <arg name="map_file" default="$(find mecanum_robot_slam)/maps/house/house.yaml"/>
+    <arg name="map_file" default="$(find mecanum_robot_slam)/maps/house/map.yaml"/>
   
     <!-- Gmapping -->
     <!-- <node name="python_create_ogrid_map" pkg="mecanum_robot_slam"  type="make_ogrid_python_rviz.py" output="screen"/> -->

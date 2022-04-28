@@ -1,4 +1,4 @@
-#!/home/yoseph/anaconda3/envs/py37/bin/python3
+#!/home/drcl-yang/anaconda3/envs/py37/bin/python3
 
 import rospy
 from nav_msgs.msg import OccupancyGrid, MapMetaData
@@ -17,14 +17,14 @@ from grid_map import *
 from utils import *
 
 P_prior = 0.5	# Prior occupancy probability
-P_occ = 0.9	# Probability that cell is occupied with total confidence
+P_occ = 0.8	# Probability that cell is occupied with total confidence
 P_free = 0.3	# Probability that cell is free with total confidence 
 
 RESOLUTION = 0.05 # Grid resolution in [m]
 
 MAP_NAME  = 'test' # map name without extension
 
-MAP_SIZE = 25
+MAP_SIZE = 10
 
 if __name__ == '__main__':
 
