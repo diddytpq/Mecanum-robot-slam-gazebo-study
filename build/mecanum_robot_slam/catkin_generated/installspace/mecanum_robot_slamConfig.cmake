@@ -67,14 +67,14 @@ set(mecanum_robot_slam_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(mecanum_robot_slam_SOURCE_PREFIX /home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam)
-  set(mecanum_robot_slam_DEVEL_PREFIX /home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/devel)
+  set(mecanum_robot_slam_SOURCE_PREFIX /home/yoseph/worckspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam)
+  set(mecanum_robot_slam_DEVEL_PREFIX /home/yoseph/worckspace/Mecanum-robot-slam-gazebo/devel)
   set(mecanum_robot_slam_INSTALL_PREFIX "")
   set(mecanum_robot_slam_PREFIX ${mecanum_robot_slam_DEVEL_PREFIX})
 else()
   set(mecanum_robot_slam_SOURCE_PREFIX "")
   set(mecanum_robot_slam_DEVEL_PREFIX "")
-  set(mecanum_robot_slam_INSTALL_PREFIX /home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/install)
+  set(mecanum_robot_slam_INSTALL_PREFIX /home/yoseph/worckspace/Mecanum-robot-slam-gazebo/install)
   set(mecanum_robot_slam_PREFIX ${mecanum_robot_slam_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/install/lib;/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/yoseph/worckspace/Mecanum-robot-slam-gazebo/install/lib;/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

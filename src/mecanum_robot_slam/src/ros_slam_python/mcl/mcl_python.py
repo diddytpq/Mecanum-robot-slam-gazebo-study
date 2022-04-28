@@ -60,7 +60,7 @@ class Localizator:
             self.ogrid_map = ogrid.data
             self.ogrid_width = ogrid.info.width
             self.ogrid_height = ogrid.info.height
-
+            self.ogrid_map_np = np.array((self.ogrid_map)).reshape(self.ogrid_height,self.ogrid_width)
 
         self.frist_map_flag = 0
 
@@ -169,18 +169,18 @@ class Localizator:
     def particle_filter(self):
         self.sample_particles()
         while not rospy.is_shutdown():
-        #     self.compute_weights()
-        #     self.resample_particles()
+            self.compute_weights()
+            self.resample_particles()
         #     # self.map_drawer.update_particles(self.particles)
         #     # self.window.update()
-        #     for i in range(0,10):
-        #         self.move_particles()
+            for i in range(0,10):
+                self.move_particles()
         #         # self.map_drawer.update_particles(self.particles)
         #         # self.window.update()
-        #         self.rate.sleep()
+                self.rate.sleep()
 
-            if self.ogrid_map:
-                print(np.array((self.ogrid_map)).reshape(self.ogrid_height,self.ogrid_width).shape)
+            # if self.ogrid_map:
+            #     print(np.array((self.ogrid_map)).reshape(self.ogrid_height,self.ogrid_width).shape)
 
 if __name__ == '__main__':
     try:

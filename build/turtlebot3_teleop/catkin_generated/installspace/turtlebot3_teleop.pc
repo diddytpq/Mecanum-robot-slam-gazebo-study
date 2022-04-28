@@ -1,4 +1,4 @@
-prefix=/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/install
+prefix=/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/install
 
 Name: turtlebot3_teleop
 Description: Description of turtlebot3_teleop

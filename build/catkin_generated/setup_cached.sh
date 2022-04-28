@@ -7,4 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PWD='/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build'
+export PWD='/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/build'

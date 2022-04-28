@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_gazebo/include/turtlebot3_gazebo/turtlebot3_drive.h
+/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/src/turtlebot3_gazebo/include/turtlebot3_gazebo/turtlebot3_drive.h
 ros/ros.h
 -
 sensor_msgs/LaserScan.h
@@ -16,9 +16,9 @@ geometry_msgs/Twist.h
 nav_msgs/Odometry.h
 -
 
-/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_gazebo/src/turtlebot3_drive.cpp
+/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/src/turtlebot3_gazebo/src/turtlebot3_drive.cpp
 turtlebot3_gazebo/turtlebot3_drive.h
-/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_gazebo/src/turtlebot3_gazebo/turtlebot3_drive.h
+/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/src/turtlebot3_gazebo/src/turtlebot3_gazebo/turtlebot3_drive.h
 
 /opt/ros/noetic/include/geometry_msgs/Point.h
 string

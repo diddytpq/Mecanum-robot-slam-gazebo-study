@@ -1,4 +1,4 @@
-prefix=/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/devel
+prefix=/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/devel
 
 Name: mecanum_robot_slam
 Description: Description of mecanum_robot_slam
