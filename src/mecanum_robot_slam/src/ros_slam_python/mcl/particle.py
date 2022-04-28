@@ -7,9 +7,10 @@ Created on Wed Sep 26 17:17:11 2018
 """
 
 class Particle:
-    def __init__(self, width = 0, height = 0):
+    def __init__(self, width = 0, height = 0, yaw = 0):
         self.width = width
         self.height = height
+        self.yaw = yaw
         self.cnt = 1
         
     def get_width(self):
@@ -17,6 +18,9 @@ class Particle:
     
     def get_height(self):
         return self.height
+
+    def get_yaw(self):
+        return self.yaw
 
     def get_cnt(self):
         return self.cnt
@@ -27,5 +31,8 @@ class Particle:
     def set_height(self, height):
         self.height = height
 
+    def set_yaw(self, yaw):
+        self.yaw = yaw
+        
     def set_cnt(self, cnt):
         self.cnt = cnt

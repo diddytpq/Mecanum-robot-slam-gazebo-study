@@ -51,13 +51,17 @@ class Localizator:
         if self.mutex == 0:        
             self.odom_msg = odom
 
+        if self.last_odom is None:
+            self.last_odom = odom
+
+
     def laser_callback(self, scan):
         if self.mutex == 0: 
             self.scan_msg = scan
 
     def ogrid_callback(self, ogrid):
         if self.frist_map_flag:
-            self.ogrid_map = ogrid.data
+            self.ogrid_map = ogrid
             self.ogrid_width = ogrid.info.width
             self.ogrid_height = ogrid.info.height
             self.ogrid_map_np = np.array((self.ogrid_map)).reshape(self.ogrid_height,self.ogrid_width)
@@ -67,18 +71,31 @@ class Localizator:
     def move_particles(self):
         remove_indices = []
         if self.odom_msg is not None:
-            if self.last_odom is not None:
-                for i in range(self.num_of_particles):
-                    new_width = self.particles[i].get_width() - \
-                    self.odom_msg.pose.pose.position.y + self.last_odom.pose.pose.position.y
-                    self.particles[i].set_width(new_width)
-                    new_height = self.particles[i].get_height() - \
-                    self.odom_msg.pose.pose.position.x + self.last_odom.pose.pose.position.x
-                    self.particles[i].set_height(new_height)
-                    new_width *= self.meter_to_pixel
-                    new_height *= self.meter_to_pixel
-            if new_height < 0 or new_height > (self.map_height) or new_width < 0 or new_width > (self.map_width) or np.all(self.map[int(new_height)][int(new_width)] > [100,100,100]):
-                remove_indices.append(i)
+            # if self.last_odom is not None:
+            q = self.odom_msg.pose.pose.orientation
+            quaternion = [q.x, q.y, q.z, q.w]
+            roll,pitch,yaw = euler_from_quaternion(quaternion)
+
+            q_last = self.last_odom.pose.pose.orientation
+            quaternion_last = [q_last.x, q_last.y, q_last.z, q_last.w]
+            roll,pitch,yaw_last = euler_from_quaternion(quaternion_last)
+
+            rot_1 = np.arctan2(self.odom_msg.pose.pose.position.y-self.last_odom.pose.pose.position.y, self.odom_msg.pose.pose.position.x - self.last_odom.pose.pose.position.x)
+            trans = np.sqrt((self.odom_msg.pose.pose.position.x - self.last_odom.pose.pose.position.x) ** 2 + (self.odom_msg.pose.pose.position.y - self.last_odom.pose.pose.position.y))
+            rot_2 = yaw - yaw_last - rot_1
+
+            for i in range(self.num_of_particles):
+                new_width = self.particles[i].get_width() + trans * np.cos(self.particles[i].get_yaw() + rot_1)
+                self.particles[i].set_width(new_width)
+                new_height = self.particles[i].get_height() + trans * np.sin(self.particles[i].get_yaw() + rot_1)
+                self.particles[i].set_height(new_height)
+                new_yaw = self.particles[i].get_yaw() + rot_1 + rot_2
+                self.particles[i].set_yaw(new_yaw)
+
+                if abs(new_width) > abs(self.ogrid_map.info.origin.position.x) or \
+                    abs(new_height) > abs(self.ogrid_map.info.origin.position.y) or \
+                    np.all(self.ogrid_map_np[int(new_height * self.meter_to_pixel)][int(new_width * self.meter_to_pixel)] >= 100):
+                    remove_indices.append(i)
 
             self.last_odom = self.odom_msg
         cnt = 0
@@ -100,7 +117,7 @@ class Localizator:
                 for i in range(len(self.scan_msg.ranges)):
                     if i % 5 == 0:
                         r = self.scan_msg.ranges[i]
-                        if r > self.scan_msg.range_min and r < self.scan_msg.range_max:
+                        if self.scan_msg.range_min < r < self.scan_msg.range_max:
                             cnt += 1
                             pixel_length = int(r * self.meter_to_pixel)
                             pixel_angle = yaw + self.scan_msg.angle_min + self.scan_msg.angle_increment * i
@@ -125,9 +142,11 @@ class Localizator:
             while True:
                 particle_width = int(np.random.uniform(0, self.map_width))
                 particle_height = int(np.random.uniform(0, self.map_height))
+                particle_yaw = (np.random.uniform(-np.pi, np.pi))
+
                 if np.any(self.map[particle_height][particle_width] != 2550):
                     break
-            particle = Particle(particle_width / self.meter_to_pixel, particle_height / self.meter_to_pixel)
+            particle = Particle(particle_width, particle_height, particle_yaw)
             self.particles.append(particle)     
             
     def resample_particles(self):
@@ -165,19 +184,34 @@ class Localizator:
             self.particle_weights.append(particle_weight)
             self.sum_of_weights += particle_weight
     
+    def print_particles(self, particles):
+        number_of_particles_per_pixel = {}        
+        for particle in particles:
+            height_in_pixels = int(particle.get_height() * self.meter_to_pixel)
+            width_in_pixels  = int(particle.get_width()  * self.meter_to_pixel)
+            index = height_in_pixels * self.map_width + width_in_pixels
+            number_of_particles_per_pixel[index] = number_of_particles_per_pixel.get(index, 0) + particle.get_cnt()
+
+            # print(height_in_pixels,width_in_pixels)
+            print(particle.get_height(),particle.get_width(), np.rad2deg(particle.get_yaw()))
+
+        print("---------------------------------")
 
     def particle_filter(self):
         self.sample_particles()
         while not rospy.is_shutdown():
-            self.compute_weights()
-            self.resample_particles()
-        #     # self.map_drawer.update_particles(self.particles)
+            # self.compute_weights()
+            # self.resample_particles()
+            # self.map_drawer.update_particles(self.particles)
+            # self.print_particles(self.particles)
+            self.move_particles()
+            self.print_particles(self.particles)
+
         #     # self.window.update()
-            for i in range(0,10):
-                self.move_particles()
-        #         # self.map_drawer.update_particles(self.particles)
-        #         # self.window.update()
-                self.rate.sleep()
+        #     for i in range(0,10):
+        # #         # self.map_drawer.update_particles(self.particles)
+        # #         # self.window.update()
+        #         self.rate.sleep()
 
             # if self.ogrid_map:
             #     print(np.array((self.ogrid_map)).reshape(self.ogrid_height,self.ogrid_width).shape)
