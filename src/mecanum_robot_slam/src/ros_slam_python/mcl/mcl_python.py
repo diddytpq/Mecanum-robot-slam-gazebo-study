@@ -51,16 +51,14 @@ class Localizator:
         self.meter_to_pixel = 19.2 #pixel/meter
 
     def odom_callback(self, odom):
-        if self.mutex == 0:        
-            self.odom_msg = odom
+        self.odom_msg = odom
 
         if self.last_odom is None:
             self.last_odom = odom
 
 
     def laser_callback(self, scan):
-        if self.mutex == 0: 
-            self.scan_msg = scan
+        self.scan_msg = scan
 
     def ogrid_callback(self, ogrid):
         if self.frist_map_flag:
@@ -168,17 +166,11 @@ class Localizator:
 
                 error_list.append(error ** 2)
 
-            self.weight_list = [np.exp(-error) for error in error_list]
+            self.weight_list = [np.exp(np.log(1000 * np.exp(-error))) for error in error_list]
             
             new_particles = self.particle_resample(self.weight_list, new_particles)
 
-            sig_weight = [self.sigmoid(error) for error in error_list]
-            N_eff_weight = sum([1 / (weight ** 2) for weight in sig_weight])
-            N_eff = N_eff_weight
-
-            if N_eff > 50:
-                self.particles = new_particles
-
+            self.particles = new_particles
 
     def get_error_particle_observation(self, scan_msg, particle):
 
@@ -248,7 +240,7 @@ class Localizator:
 
     def particle_resample(self, weight_list, new_particles):
         
-        beta = 0
+        """beta = 0
 
         sample_u = np.random.uniform(0, 1)
         index = int(sample_u * (len(weight_list) - 1))
@@ -264,7 +256,25 @@ class Localizator:
 
             particle = self.particles[index]
 
-            new_particles.append(Particle(particle.x_pos, particle.y_pos, particle.yaw))
+            new_particles.append(Particle(particle.x_pos, particle.y_pos, particle.yaw))"""
+
+        new_particles = []
+        M = len(self.particles)
+
+        wt = np.array(weight_list)
+
+        r = np.random.uniform(0, 1.0/M)
+
+        wt /= wt.sum()
+
+        c = wt[0]
+        i = 0
+        for m in range(M):
+            u = r + (m)*(1.0/M)
+            while u>c:
+                i = i +1
+                c = c + wt[i]
+            new_particles.append(self.particles[i])
 
         return new_particles
 
