@@ -10,6 +10,7 @@ from copy import deepcopy
 from tf.transformations import euler_from_quaternion, quaternion_from_euler
 import cv2
 
+import time
 import sys
 from pathlib import Path
 
@@ -21,34 +22,33 @@ sys.path.insert(0, path)
 
 
 class Localizator:
-    def __init__(self):        
-        self.map_width = 384
-        self.map_height = 384
-        self.map_path = path + "/map/house.pgm"
-        self.map = cv2.imread(self.map_path)
-        self.map = cv2.resize(self.map,(self.map_width,self.map_height))
-        self.ogrid_map = 0
-        self.particles = []
-        self.mutex = 0
-        self.sum_of_weights = 0.0
-        self.particle_weights = []
-        self.num_of_particles = 1000
-        self.scan_msg = None
-        self.odom_msg = None
-        self.last_odom = None
-        self.meter_to_pixel = 19.2 #pixel/meter
-        # self.window = Tk()
-        # self.map_drawer = mapDrawer(self.window)
+    def __init__(self, init_x = False, init_y = False, init_yaw = False):     
+
         rospy.init_node('particle_filter', anonymous=True)
         self.rate = rospy.Rate(25) # 25hz
 
         self.frist_map_flag = 1
 
-        self.pose_array_pub = rospy.Publisher("particlecloud", PoseArray, 10)
+        self.pose_array_pub = rospy.Publisher("particlecloud", PoseArray, queue_size = 10)
 
         self.odom_sub = rospy.Subscriber("odom", Odometry, self.odom_callback)
         self.laser_sub = rospy.Subscriber("scan", LaserScan, self.laser_callback)
         self.ogrid_sub = rospy.Subscriber("map", OccupancyGrid, self.ogrid_callback)
+   
+
+        self.particles = []
+
+        self.init_pos = (init_x, init_y, init_yaw)
+
+        if self.init_pos[0] :
+            self.num_of_particles = 300
+        else:
+            self.num_of_particles = 10000
+
+        self.scan_msg = None
+        self.odom_msg = None
+        self.last_odom = None
+        self.meter_to_pixel = 19.2 #pixel/meter
 
     def odom_callback(self, odom):
         if self.mutex == 0:        
@@ -68,12 +68,30 @@ class Localizator:
             self.ogrid_width = ogrid.info.width
             self.ogrid_height = ogrid.info.height
 
-            self.ogrid_origin_x = self.ogrid_map.info.origin.position.x
-            self.ogrid_origin_y = self.ogrid_map.info.origin.position.y
+            self.ogrid_origin_x = ogrid.info.origin.position.x
+            self.ogrid_origin_y = ogrid.info.origin.position.y
 
             self.ogrid_map_np = np.array((ogrid.data)).reshape(self.ogrid_height,self.ogrid_width)
 
         self.frist_map_flag = 0
+
+    def meter_pos_to_ogrid_pos(self, x, y):
+
+        grid_x = int((abs(self.ogrid_origin_x) + x) * self.meter_to_pixel)
+        grid_y = int((abs(self.ogrid_origin_y) + y) * self.meter_to_pixel)
+
+        return grid_x, grid_y    
+    
+    def sigmoid(self, x):
+        """Numerically-stable sigmoid function."""
+        if x >= 0:
+            z = np.exp(-x)
+            return 1 / (1 + z)
+        else:
+            # if x is less than zero then z will be small, denom can't be
+            # zero because it's 1+z.
+            z = np.exp(x)
+            return z / (1 + z)
 
     def move_particles(self):
         remove_indices = []
@@ -92,18 +110,19 @@ class Localizator:
             rot_2 = yaw - yaw_last - rot_1
 
             for i in range(self.num_of_particles):
-                new_width = self.particles[i].get_width() + trans * np.cos(self.particles[i].get_yaw() + rot_1)
-                new_height = self.particles[i].get_height() + trans * np.sin(self.particles[i].get_yaw() + rot_1)
-                new_yaw = self.particles[i].get_yaw() + rot_1 + rot_2
+                new_x_pos = self.particles[i].x_pos + trans * np.cos(self.particles[i].yaw + rot_1)
+                new_y_pos = self.particles[i].y_pos + trans * np.sin(self.particles[i].yaw + rot_1)
+                new_yaw = self.particles[i].yaw + rot_1 + rot_2
 
-                self.particles[i].set_width(new_width)
-                self.particles[i].set_height(new_height)
+                self.particles[i].set_x_pos(new_x_pos)
+                self.particles[i].set_y_pos(new_y_pos)
                 self.particles[i].set_yaw(new_yaw)
 
-                if abs(new_width) > abs(self.ogrid_origin_x) or \
-                    abs(new_height) > abs(self.ogrid_origin_y) or \
-                    np.all(self.ogrid_map_np[int((10 + new_height) * self.meter_to_pixel)][int((-10 + new_width) * self.meter_to_pixel)] > 99):
-                    # np.all(self.ogrid_map_np[int(new_height * self.meter_to_pixel)][int(new_width * self.meter_to_pixel)] > 99):     
+                grid_x, grid_y = self.meter_pos_to_ogrid_pos(new_x_pos, new_y_pos)
+
+                if abs(new_x_pos) > abs(self.ogrid_origin_x) or \
+                    abs(new_y_pos) > abs(self.ogrid_origin_y) or \
+                    np.all(self.ogrid_map_np[grid_y][grid_x] > 99) :
                     remove_indices.append(i)
 
             self.last_odom = self.odom_msg
@@ -113,91 +132,144 @@ class Localizator:
             cnt += 1
             self.num_of_particles -= 1  
         print(self.num_of_particles)
-                
-    def particle_likelihood(self, particle):
-        similarity = 0
-        cnt = 0
-        self.mutex = 1
-    
-        if self.scan_msg is not None:
-            if self.odom_msg is not None:			
-                q = self.odom_msg.pose.pose.orientation
-                quaternion = [q.x, q.y, q.z, q.w]
-                roll,pitch,yaw = euler_from_quaternion(quaternion)
-                for i in range(len(self.scan_msg.ranges)):
-                    if i % 5 == 0:
-                        r = self.scan_msg.ranges[i]
-                        if self.scan_msg.range_min < r < self.scan_msg.range_max:
-                            cnt += 1
-                            pixel_length = int(r * self.meter_to_pixel)
-                            pixel_angle = yaw + self.scan_msg.angle_min + self.scan_msg.angle_increment * i
-                            wall_x = int(particle.get_height() * self.meter_to_pixel - int(pixel_length * np.cos(pixel_angle)))
-                            wall_y = int(particle.get_width() * self.meter_to_pixel - int(pixel_length * np.sin(pixel_angle)))
-                            for k in range(-5,6):
-                                for j in range(-5,6): 
-                                    wall_x1 = wall_x + k
-                                    wall_y1 = wall_y + j
-                                    if wall_x1 >= 0 and wall_x1 < self.map_height and wall_y1 >= 0 and wall_y1 < self.map_width:          
-                                        if np.all(self.map[int(wall_x1)][int(wall_y1)] > [100,100,100]):
-                                                similarity += 1
-                                            
-                                                break	
-        self.mutex = 0	
-        if cnt == 0:
-            return 0			
-        return 100 * particle.get_cnt() * similarity/cnt
             
     def sample_particles(self):
-        for i in range(self.num_of_particles):
-            while True:
-                if self.frist_map_flag == 0 :
-                    particle_width = int(np.random.uniform(-abs(self.ogrid_origin_x), abs(self.ogrid_origin_x)))
-                    particle_height = int(np.random.uniform(-abs(self.ogrid_origin_y), abs(self.ogrid_origin_y)))
 
+        time.sleep(1)
+
+        if self.init_pos[0] == False:
+            for i in range(self.num_of_particles):
+                if self.frist_map_flag == 0 :
+                    particle_x = (np.random.uniform(-abs(self.ogrid_origin_x), abs(self.ogrid_origin_x)))
+                    particle_y = (np.random.uniform(-abs(self.ogrid_origin_y), abs(self.ogrid_origin_y)))
                     particle_yaw = (np.random.uniform(-np.pi, np.pi))
 
-                    if np.any(self.map[particle_height][particle_width] != 2550):
-                        break
-            particle = Particle(particle_width, particle_height, particle_yaw)
-            self.particles.append(particle)     
-            
-    def resample_particles(self):
-        if self.sum_of_weights == 0:
-            return
-        new_particles = []
-        dictionary = {}
-        for i in range(self.num_of_particles + 50):
-            temp = np.random.uniform(0, self.sum_of_weights)
-            sum_until_temp = 0.0
-            for j in range(self.num_of_particles):
-                sum_until_temp += self.particle_weights[j]
-                if temp < sum_until_temp:
-                    if self.particles[j] in dictionary:
-                        dictionary[tuple((self.particles[j].get_width(),self.particles[j].get_height()))] += 1
-                    else:
-                        dictionary[tuple((self.particles[j].get_width(),self.particles[j].get_height()))] = 1
-                    break
-        num = 0
-        for key in dictionary:
-            a,b = key
-            new_particle = Particle(a,b)
-            new_particle.set_cnt(dictionary[key])
-            new_particles.append(new_particle)
-            num += 1
-            
-            self.particles = deepcopy(new_particles)
-        self.num_of_particles = num
+                    particle = Particle(particle_x, particle_y, particle_yaw)
+                    self.particles.append(particle)     
+                
+        else:
+            for i in range(self.num_of_particles):
+                if self.frist_map_flag == 0 :
+                    particle_x = (np.random.uniform((self.init_pos[0]) - 0.5, (self.init_pos[0] + 0.5)))
+                    particle_y = (np.random.uniform((self.init_pos[1]) - 0.5, (self.init_pos[1] + 0.5)))
+                    particle_yaw = self.init_pos[2]
+
+                    particle = Particle(particle_x, particle_y, particle_yaw)
+                    self.particles.append(particle)     
+                
 
     def compute_weights(self):
-        self.sum_of_weights = 0.0
-        self.particle_weights = []
+        error_list = []
+        new_particles = []
+
+        if self.scan_msg is not None:
+            for particle in self.particles:
+                error = self.get_error_particle_observation(self.scan_msg, particle)
+
+                error_list.append(error ** 2)
+
+            self.weight_list = [np.exp(-error) for error in error_list]
+            
+            new_particles = self.particle_resample(self.weight_list, new_particles)
+
+            sig_weight = [self.sigmoid(error) for error in error_list]
+            N_eff_weight = sum([1 / (weight ** 2) for weight in sig_weight])
+            N_eff = N_eff_weight
+
+            if N_eff > 50:
+                self.particles = new_particles
+
+
+    def get_error_particle_observation(self, scan_msg, particle):
+
+        sample_real_range_list, sample_real_angle_list = self.subsample_laser_scan(scan_msg)
+
+        predict_range_list = self.sim_scan_based_particle(particle, sample_real_angle_list,scan_msg.range_min, scan_msg.range_max)
+
+        diff = [actual_range - predict_range for actual_range, predict_range in zip(sample_real_range_list, predict_range_list)]
+
+        norm_error = np.linalg.norm(diff)
+
+        return norm_error
+
+    def subsample_laser_scan(self, scan_msg):
+
+        sample_real_range_list = []
+
+        N = len(scan_msg.ranges)
+
+        subsample_num = 36
+
+        range_list = scan_msg.ranges
+        angle_list = [scan_msg.angle_min + i * scan_msg.angle_increment for i in range(N)]
+
+        step = int(N / subsample_num)
+
+        sample_range_list = range_list[::step]
+        sample_angle_list = angle_list[::step]
+
+        for r in sample_range_list:
+
+            if scan_msg.range_min < r < scan_msg.range_max :
+                sample_real_range_list.append(r)
+            elif r <= scan_msg.range_min:
+                sample_real_range_list.append(scan_msg.range_min)
+            else:
+                sample_real_range_list.append(scan_msg.range_max)
+                
+        return sample_real_range_list, sample_angle_list
+
+    def sim_scan_based_particle(self, particle, angle_list, range_min, range_max):
+
+        sim_range_list = []
+
+        for angle in angle_list:
+            
+            pred_angle = particle.yaw + angle
+            r = range_min
+
+            while r <= range_max:
+                point_x = particle.x_pos + r * np.cos(pred_angle)
+                point_y = particle.y_pos + r * np.sin(pred_angle)
+
+                if abs(point_x) > abs(self.ogrid_origin_x) or abs(point_y) > abs(self.ogrid_origin_y):
+                    break
+
+                grid_x, grid_y = self.meter_pos_to_ogrid_pos(point_x, point_y)
+
+                if self.ogrid_map_np[grid_y, grid_x] != 0:
+                    break
+
+                r += self.ogrid_map.info.resolution
+
+            sim_range_list.append(r)
+        
+        return sim_range_list
+
+    def particle_resample(self, weight_list, new_particles):
+        
+        beta = 0
+
+        sample_u = np.random.uniform(0, 1)
+        index = int(sample_u * (len(weight_list) - 1))
+
+        weight_max = np.max(weight_list)
+
         for particle in self.particles:
-            particle_weight = self.particle_likelihood(particle)**(3)
-            self.particle_weights.append(particle_weight)
-            self.sum_of_weights += particle_weight
-    
-    def print_particles(self, particles):
-        # number_of_particles_per_pixel = {}  
+            beta += np.random.uniform(0, 1) * 2 * weight_max
+
+            while beta > self.weight_list[index]:
+                beta -= self.weight_list[index]
+                index = (index + 1) % len(weight_list)
+
+            particle = self.particles[index]
+
+            new_particles.append(Particle(particle.x_pos, particle.y_pos, particle.yaw))
+
+        return new_particles
+
+
+    def send_to_rviz(self, particles):
         pose_arr = PoseArray()
         pose_arr.header.frame_id = 'map'
 
@@ -205,48 +277,31 @@ class Localizator:
             particle_pos = PoseStamped()
             particle_pos.header.stamp = rospy.Time.now()
             particle_pos.header.frame_id = 'map'
-            
-            # height_in_pixels = int(particle.get_height() * self.meter_to_pixel)
-            # width_in_pixels  = int(particle.get_width()  * self.meter_to_pixel)
-            # index = height_in_pixels * self.map_width + width_in_pixels
-            # number_of_particles_per_pixel[index] = number_of_particles_per_pixel.get(index, 0) + particle.get_cnt()
 
-            q = quaternion_from_euler(0,0,particle.get_yaw())
+            q = quaternion_from_euler(0,0,particle.yaw)
 
-            particle_pos.pose = Pose(Point(particle.get_width(), particle.get_height(), 0),\
+            particle_pos.pose = Pose(Point(particle.x_pos, particle.y_pos, 0),\
                                      Quaternion(q[0], q[1], q[2], q[3]))
             pose_arr.header = particle_pos.header
             pose_arr.poses.append(particle_pos.pose)
 
-
-
-            # print(height_in_pixels,width_in_pixels)
-            # print(particle.get_height(),particle.get_width(), np.rad2deg(particle.get_yaw()))
         self.pose_array_pub.publish(pose_arr)
         print("---------------------------------")
 
-    def particle_filter(self):
+    def main(self):
         self.sample_particles()
+        self.send_to_rviz(self.particles)
+
         while not rospy.is_shutdown():
-            # self.compute_weights()
-            # self.resample_particles()
-            # self.map_drawer.update_particles(self.particles)
-            # self.print_particles(self.particles)
             self.move_particles()
-            self.print_particles(self.particles)
-
-        #     # self.window.update()
-        #     for i in range(0,10):
-        # #         # self.map_drawer.update_particles(self.particles)
-        # #         # self.window.update()
-        #         self.rate.sleep()
-
-            # if self.ogrid_map:
-            #     print(np.array((self.ogrid_map)).reshape(self.ogrid_height,self.ogrid_width).shape)
+            self.compute_weights()
+            self.send_to_rviz(self.particles)
 
 if __name__ == '__main__':
     try:
-        loc = Localizator()
-        loc.particle_filter()
+        loc = Localizator(-3,1,0)
+        # loc = Localizator()
+
+        loc.main()
     except rospy.ROSInterruptException:
         pass

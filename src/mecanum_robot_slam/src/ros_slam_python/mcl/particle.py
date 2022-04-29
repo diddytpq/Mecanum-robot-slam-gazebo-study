@@ -7,29 +7,17 @@ Created on Wed Sep 26 17:17:11 2018
 """
 
 class Particle:
-    def __init__(self, width = 0, height = 0, yaw = 0):
-        self.width = width
-        self.height = height
+    def __init__(self, x_pos = 0, y_pos = 0, yaw = 0):
+        self.x_pos = x_pos
+        self.y_pos = y_pos 
         self.yaw = yaw
         self.cnt = 1
-        
-    def get_width(self):
-        return self.width
     
-    def get_height(self):
-        return self.height
-
-    def get_yaw(self):
-        return self.yaw
-
-    def get_cnt(self):
-        return self.cnt
+    def set_x_pos(self, x_pos):
+        self.x_pos= x_pos
     
-    def set_width(self, width):
-        self.width = width
-    
-    def set_height(self, height):
-        self.height = height
+    def set_y_pos(self, y_pos):
+        self.y_pos  = y_pos 
 
     def set_yaw(self, yaw):
         self.yaw = yaw
