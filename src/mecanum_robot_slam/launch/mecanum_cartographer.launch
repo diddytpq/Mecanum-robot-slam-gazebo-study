@@ -8,7 +8,7 @@
 
   <!-- cartographer_node -->
   <node pkg="cartographer_ros" type="cartographer_node" name="cartographer_node" 
-        args="-configuration_directory $(find turtlebot3_slam)/config
+        args="-configuration_directory $(find mecanum_robot_slam)/config
               -configuration_basename $(arg configuration_basename)"
         output="screen">
     <remap from="/imu" to="/flat_imu"/>

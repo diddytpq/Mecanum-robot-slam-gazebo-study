@@ -1,8 +1,8 @@
-# Install script for directory: /home/yoseph/worckspace/Mecanum-robot-slam-gazebo/src/turtlebot3_bringup
+# Install script for directory: /home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_bringup
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/install")
+  set(CMAKE_INSTALL_PREFIX "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,18 +38,18 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/build/turtlebot3_bringup/catkin_generated/installspace/turtlebot3_bringup.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build/turtlebot3_bringup/catkin_generated/installspace/turtlebot3_bringup.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_bringup/cmake" TYPE FILE FILES
-    "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/build/turtlebot3_bringup/catkin_generated/installspace/turtlebot3_bringupConfig.cmake"
-    "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/build/turtlebot3_bringup/catkin_generated/installspace/turtlebot3_bringupConfig-version.cmake"
+    "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build/turtlebot3_bringup/catkin_generated/installspace/turtlebot3_bringupConfig.cmake"
+    "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/build/turtlebot3_bringup/catkin_generated/installspace/turtlebot3_bringupConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_bringup" TYPE FILE FILES "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/src/turtlebot3_bringup/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_bringup" TYPE FILE FILES "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_bringup/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -59,7 +59,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_bringup/turtlebot3_diagnostics"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_bringup" TYPE EXECUTABLE FILES "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/devel/lib/turtlebot3_bringup/turtlebot3_diagnostics")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_bringup" TYPE EXECUTABLE FILES "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/devel/lib/turtlebot3_bringup/turtlebot3_diagnostics")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_bringup/turtlebot3_diagnostics" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_bringup/turtlebot3_diagnostics")
     file(RPATH_CHANGE
@@ -73,14 +73,14 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_bringup" TYPE PROGRAM FILES "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/src/turtlebot3_bringup/scripts/create_udev_rules")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/turtlebot3_bringup" TYPE PROGRAM FILES "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_bringup/scripts/create_udev_rules")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_bringup" TYPE DIRECTORY FILES "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/src/turtlebot3_bringup/launch")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_bringup" TYPE DIRECTORY FILES "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_bringup/launch")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_bringup" TYPE FILE FILES "/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/src/turtlebot3_bringup/99-turtlebot3-cdc.rules")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_bringup" TYPE FILE FILES "/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_bringup/99-turtlebot3-cdc.rules")
 endif()
 

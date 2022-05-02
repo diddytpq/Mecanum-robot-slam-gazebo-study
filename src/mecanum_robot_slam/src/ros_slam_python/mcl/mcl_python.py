@@ -26,6 +26,11 @@ class Localizator:
         rospy.init_node('particle_filter', anonymous=True)
         self.rate = rospy.Rate(25) # 25hz
 
+        self.scan_msg = None
+        self.odom_msg = None
+        self.last_odom = None
+        self.meter_to_pixel = 19.2 #pixel/meter
+
         self.frist_map_flag = 1
         self.mutex = 0
 
@@ -35,7 +40,6 @@ class Localizator:
         self.laser_sub = rospy.Subscriber("scan", LaserScan, self.laser_callback)
         self.ogrid_sub = rospy.Subscriber("map", OccupancyGrid, self.ogrid_callback)
    
-
         self.particles = []
 
         self.init_pos = (init_x, init_y, init_yaw)
@@ -43,12 +47,9 @@ class Localizator:
         if self.init_pos[0] :
             self.num_of_particles = 30
         else:
-            self.num_of_particles = 1000
+            self.num_of_particles = 500000
 
-        self.scan_msg = None
-        self.odom_msg = None
-        self.last_odom = None
-        self.meter_to_pixel = 19.2 #pixel/meter
+
 
     def odom_callback(self, odom):
         if self.mutex == 0:        
@@ -62,7 +63,8 @@ class Localizator:
             self.scan_msg = scan
 
     def ogrid_callback(self, ogrid):
-        if self.frist_map_flag:
+        if self.mutex == 0: 
+            # if self.frist_map_flag:
             self.ogrid_map = ogrid
             self.ogrid_width = ogrid.info.width
             self.ogrid_height = ogrid.info.height
@@ -72,14 +74,15 @@ class Localizator:
 
             self.ogrid_map_np = np.array((ogrid.data)).reshape(self.ogrid_height,self.ogrid_width)
 
-        self.frist_map_flag = 0
+        # self.frist_map_flag = 0
 
     def meter_pos_to_ogrid_pos(self, x, y):
 
         grid_x = int((abs(self.ogrid_origin_x - x)) * self.meter_to_pixel)
-        grid_y = self.ogrid_height - int((abs(self.ogrid_origin_y - y)) * self.meter_to_pixel)
+        # grid_y = self.ogrid_height - int((abs(self.ogrid_origin_y - y)) * self.meter_to_pixel)
+        grid_y = int((abs(self.ogrid_origin_y - y)) * self.meter_to_pixel)
 
-        return grid_x, grid_y - 1
+        return grid_x, grid_y
     
 
     def move_particles(self):
@@ -129,29 +132,36 @@ class Localizator:
         if self.init_pos[0] == False:
             for i in range(self.num_of_particles):
                 while True:
-                    if self.frist_map_flag == 0 :
-                        particle_x = (np.random.uniform(-abs(self.ogrid_origin_x), abs(self.ogrid_origin_x)))
-                        particle_y = (np.random.uniform(-abs(self.ogrid_origin_y), abs(self.ogrid_origin_y)))
-                        particle_yaw = (np.random.uniform(-np.pi, np.pi))
+                    # particle_x = (np.random.uniform(-abs(self.ogrid_origin_x), abs(self.ogrid_origin_x)))
+                    # particle_y = (np.random.uniform(-abs(self.ogrid_origin_y), abs(self.ogrid_origin_y)))
+                    # particle_yaw = (np.random.uniform(-np.pi, np.pi))
 
-                        x_pixel, y_pixel = self.meter_pos_to_ogrid_pos(particle_x ,particle_y)
+                    particle_x = (np.random.uniform(-abs(self.ogrid_origin_x), abs(self.ogrid_origin_x)))
+                    particle_y = (np.random.uniform(-abs(self.ogrid_origin_y), abs(self.ogrid_origin_y)))
+                    particle_yaw = (np.random.uniform(-np.pi, np.pi))
 
-                        if np.all(self.ogrid_map_np[y_pixel][x_pixel]) == 0:
-                            particle = Particle(particle_x, particle_y, particle_yaw)
-                            self.particles.append(particle)
-                            break
+                    # particle_x = 0
+                    # particle_y = 3
+                    # particle_yaw = 0
 
+                    x_pixel, y_pixel = self.meter_pos_to_ogrid_pos(particle_x ,particle_y)
+
+                    # if (self.ogrid_map_np[y_pixel][x_pixel]) == 0:
+                    particle = Particle(particle_x, particle_y, particle_yaw)
+                    self.particles.append(particle)
+                    #     break
+                    break
                 
         else:
             for i in range(self.num_of_particles):
-                if self.frist_map_flag == 0 :
-                    particle_x = (np.random.uniform((self.init_pos[0]) - 0.5, (self.init_pos[0] + 0.5)))
-                    particle_y = (np.random.uniform((self.init_pos[1]) - 0.5, (self.init_pos[1] + 0.5)))
-                    particle_yaw = self.init_pos[2]
 
-                    particle = Particle(particle_x, particle_y, particle_yaw)
-                    self.particles.append(particle)     
-                
+                particle_x = (np.random.uniform((self.init_pos[0]) - 0.5, (self.init_pos[0] + 0.5)))
+                particle_y = (np.random.uniform((self.init_pos[1]) - 0.5, (self.init_pos[1] + 0.5)))
+                particle_yaw = self.init_pos[2]
+
+                particle = Particle(particle_x, particle_y, particle_yaw)
+                self.particles.append(particle)     
+            
 
     def compute_weights(self):
         self.weight_list = []
@@ -161,7 +171,7 @@ class Localizator:
             for particle in self.particles:
                 weight = self.particle_likelihood(particle)
 
-                self.weight_list.append(weight ** 2)
+                self.weight_list.append(weight ** 1)
 
         if self.weight_list:
             self.sum_of_weights = sum(self.weight_list)
@@ -184,7 +194,7 @@ class Localizator:
                 quaternion = [q.x, q.y, q.z, q.w]
                 roll,pitch,yaw = euler_from_quaternion(quaternion)
                 for i in range(len(self.scan_msg.ranges)):
-                    if i % 10 == 0:
+                    if i % 5 == 0:
                         r = self.scan_msg.ranges[i]
                         if r > self.scan_msg.range_min and r < self.scan_msg.range_max:
                             cnt += 1
@@ -211,29 +221,50 @@ class Localizator:
             return
         new_particles = []
         dictionary = {}
+
+        self.weight_list = np.array(self.weight_list) / self.sum_of_weights
+        
         for i in range(self.num_of_particles + 50):
-            temp = np.random.uniform(0, self.sum_of_weights)
+            temp = np.random.uniform(0, 1)
             sum_until_temp = 0.0
             for j in range(self.num_of_particles):
                 sum_until_temp += self.weight_list[j]
                 if temp < sum_until_temp:
                     if self.particles[j] in dictionary:
-                        dictionary[tuple((self.particles[j].x_pos,self.particles[j].y_pos))] += 1
+                        dictionary[tuple((self.particles[j].x_pos,self.particles[j].y_pos, self.particles[j].yaw))] += 1
                     else:
-                        dictionary[tuple((self.particles[j].x_pos,self.particles[j].y_pos))] = 1
+                        dictionary[tuple((self.particles[j].x_pos,self.particles[j].y_pos, self.particles[j].yaw))] = 1
                     break
         num = 0
         for key in dictionary:
-            a,b = key
-            new_particle = Particle(a,b)
+            x,y,yaw = key
+            new_particle = Particle(x,y,yaw)
             new_particle.set_cnt(dictionary[key])
             new_particles.append(new_particle)
             num += 1
-            
+
+
+
+
             self.particles = deepcopy(new_particles)
         self.num_of_particles = num
 
+        if self.num_of_particles < 100:
+            for particle in self.particles:
+                x, y, yaw = particle.x_pos, particle.y_pos, particle.yaw
 
+                for i in range(2):
+                    new_x = (np.random.uniform(x - 0.5, x + 0.5))
+                    new_y = (np.random.uniform(y - 0.5, y + 0.5))
+                    new_yaw = (np.random.uniform(yaw - (np.pi/10), yaw + (np.pi/10)))
+        
+                    new_particle = Particle(new_x,new_y,new_yaw)
+                    new_particle.set_cnt(1)
+                    new_particles.append(new_particle)
+
+                    self.num_of_particles += 1
+
+            self.particles = deepcopy(new_particles)
 
     def send_to_rviz(self, particles):
         pose_arr = PoseArray()
@@ -260,9 +291,9 @@ class Localizator:
 
         while not rospy.is_shutdown():
             t0 = time.time()
-            self.move_particles()
-            self.compute_weights()
-            self.resample_particles()
+            # self.move_particles()
+            # self.compute_weights()
+            # self.resample_particles()
             self.send_to_rviz(self.particles)
             print("dt = ", time.time() - t0)
 

@@ -1,4 +1,4 @@
-prefix=/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/install
+prefix=/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/install
 
 Name: turtlebot3_fake
 Description: Description of turtlebot3_fake

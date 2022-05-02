@@ -1,4 +1,4 @@
-#!/home/yoseph/anaconda3/envs/py37/bin/python3
+#!/home/drcl-yang/anaconda3/envs/py37/bin/python3
 
 import rospy
 
@@ -18,8 +18,8 @@ def get_tf_map_odom():
     t.header.frame_id = "map"
     t.header.stamp = rospy.Time.now()
     t.child_frame_id = "odom"
-    t.transform.translation.x = 0.0
-    t.transform.translation.y = 0.0
+    t.transform.translation.x = 0.
+    t.transform.translation.y = 0.
     t.transform.translation.z = 0.0
 
     t.transform.rotation.x = 0.0
