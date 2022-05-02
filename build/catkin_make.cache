@@ -1,2 +1,2 @@
 mecanum_robot_description:mecanum_robot_gazebo:mecanum_robot_slam:turtlebot3_bringup:turtlebot3_description:turtlebot3_fake:turtlebot3_gazebo:turtlebot3_navigation:turtlebot3_simulations:turtlebot3_slam:turtlebot3_teleop
--DPYTHON_EXECUTABLE=/usr/bin/python3 -DCATKIN_DEVEL_PREFIX=/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/devel -DCMAKE_INSTALL_PREFIX=/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/install -G Unix Makefiles
+-DPYTHON_EXECUTABLE=/usr/bin/python3 -DCATKIN_DEVEL_PREFIX=/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/devel -DCMAKE_INSTALL_PREFIX=/home/yoseph/worckspace/Mecanum-robot-slam-gazebo/install -G Unix Makefiles
