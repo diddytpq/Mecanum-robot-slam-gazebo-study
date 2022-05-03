@@ -29,7 +29,7 @@ class Localizator:
         self.scan_msg = None
         self.odom_msg = None
         self.last_odom = None
-        self.meter_to_pixel = 19.2 #pixel/meter
+        self.meter_to_pixel = 20 #pixel/meter
 
         self.frist_map_flag = 1
         self.mutex = 0
@@ -47,7 +47,7 @@ class Localizator:
         if self.init_pos[0] :
             self.num_of_particles = 30
         else:
-            self.num_of_particles = 500000
+            self.num_of_particles = 1000
 
 
 
@@ -132,13 +132,13 @@ class Localizator:
         if self.init_pos[0] == False:
             for i in range(self.num_of_particles):
                 while True:
-                    # particle_x = (np.random.uniform(-abs(self.ogrid_origin_x), abs(self.ogrid_origin_x)))
-                    # particle_y = (np.random.uniform(-abs(self.ogrid_origin_y), abs(self.ogrid_origin_y)))
-                    # particle_yaw = (np.random.uniform(-np.pi, np.pi))
-
                     particle_x = (np.random.uniform(-abs(self.ogrid_origin_x), abs(self.ogrid_origin_x)))
                     particle_y = (np.random.uniform(-abs(self.ogrid_origin_y), abs(self.ogrid_origin_y)))
                     particle_yaw = (np.random.uniform(-np.pi, np.pi))
+
+                    # particle_x = (np.random.uniform(-abs(self.ogrid_origin_x), abs(self.ogrid_origin_x)))
+                    # particle_y = (np.random.uniform(-abs(self.ogrid_origin_y), abs(self.ogrid_origin_y)))
+                    # particle_yaw = (np.random.uniform(-np.pi, np.pi))
 
                     # particle_x = 0
                     # particle_y = 3
@@ -146,11 +146,10 @@ class Localizator:
 
                     x_pixel, y_pixel = self.meter_pos_to_ogrid_pos(particle_x ,particle_y)
 
-                    # if (self.ogrid_map_np[y_pixel][x_pixel]) == 0:
-                    particle = Particle(particle_x, particle_y, particle_yaw)
-                    self.particles.append(particle)
-                    #     break
-                    break
+                    if (self.ogrid_map_np[y_pixel][x_pixel]) == 0:
+                        particle = Particle(particle_x, particle_y, particle_yaw)
+                        self.particles.append(particle)
+                        break
                 
         else:
             for i in range(self.num_of_particles):
@@ -291,9 +290,9 @@ class Localizator:
 
         while not rospy.is_shutdown():
             t0 = time.time()
-            # self.move_particles()
-            # self.compute_weights()
-            # self.resample_particles()
+            self.move_particles()
+            self.compute_weights()
+            self.resample_particles()
             self.send_to_rviz(self.particles)
             print("dt = ", time.time() - t0)
 

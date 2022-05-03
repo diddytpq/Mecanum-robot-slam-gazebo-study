@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Map1
       Splitter Ratio: 0.6352941393852234
     Tree Height: 549
   - Class: rviz/Selection
@@ -102,6 +103,10 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -225,4 +230,4 @@ Window Geometry:
     collapsed: true
   Width: 1267
   X: 342
-  Y: 248
+  Y: 211
