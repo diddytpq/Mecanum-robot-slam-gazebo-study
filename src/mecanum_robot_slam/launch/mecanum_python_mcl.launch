@@ -14,7 +14,11 @@
   <!-- Map server -->
   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
 
-  <node name="trans_TF_map_to_odom" pkg="mecanum_robot_slam"  type="TF_map_to_odom.py" output="screen"/>
+  <!-- <node name="trans_TF_map_to_odom" pkg="mecanum_robot_slam"  type="TF_map_to_odom.py" output="screen"/> -->
+
+  <!-- x, y, z, yaw, pitch, roll, frame_id, child_frame_id, period -->
+  <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 10" />  
+
 
   <!-- rviz -->
   <group if="$(arg open_rviz)"> 

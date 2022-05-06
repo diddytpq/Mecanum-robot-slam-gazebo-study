@@ -1,4 +1,4 @@
-#!/home/drcl-yang/anaconda3/envs/py37/bin/python3
+#!/usr/bin/env python
 
 import rospy
 import numpy as np

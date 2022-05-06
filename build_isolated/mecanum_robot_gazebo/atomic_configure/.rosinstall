@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/yang/workspace/Mecanum-robot-slam-gazebo/devel_isolated/mecanum_robot_gazebo/setup.sh

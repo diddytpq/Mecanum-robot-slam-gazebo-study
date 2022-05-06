@@ -1,8 +1,0 @@
-prefix=/home/drcl-yang/workspace/Mecanum-robot-slam-gazebo/devel
-
-Name: mecanum_robot_gazebo
-Description: Description of mecanum_robot_gazebo
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -1,0 +1,7 @@
+# ninja log v5
+0	1964	1651827057363265204	CMakeFiles/turtlebot3_diagnostics.dir/src/turtlebot3_diagnostics.cpp.o	51d65df1fb487378
+1965	2073	1651827057471269269	/home/yang/workspace/Mecanum-robot-slam-gazebo/devel_isolated/turtlebot3_bringup/lib/turtlebot3_bringup/turtlebot3_diagnostics	991b5b923967dfca
+2	17	0	CMakeFiles/install.util	4bc3d014ad2d2aa2
+2	11	0	CMakeFiles/install.util	4bc3d014ad2d2aa2
+1	10	0	CMakeFiles/install.util	4bc3d014ad2d2aa2
+2	11	0	CMakeFiles/install.util	4bc3d014ad2d2aa2

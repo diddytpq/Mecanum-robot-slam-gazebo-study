@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: turtlebot3_teleop
+Version: 1.2.6
+Summary: Provides teleoperation using keyboard for TurtleBot3.
+Home-page: http://wiki.ros.org/turtlebot3_teleop
+Author: Will Son
+Author-email: willson@robotis.com
+License: BSD
+Description: UNKNOWN
+Platform: UNKNOWN

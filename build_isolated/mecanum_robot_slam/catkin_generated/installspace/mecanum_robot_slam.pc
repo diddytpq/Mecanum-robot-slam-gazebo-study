@@ -1,0 +1,8 @@
+prefix=/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated
+
+Name: mecanum_robot_slam
+Description: Description of mecanum_robot_slam
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
