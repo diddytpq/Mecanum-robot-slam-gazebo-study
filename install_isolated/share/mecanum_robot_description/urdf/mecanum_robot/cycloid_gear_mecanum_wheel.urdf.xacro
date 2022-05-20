@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="wheel">
+
+    <xacro:macro name = "mecanum_wheel" params = "prefix parent *origin reflect">
+        <xacro:property name="wheel_mass" value="0.456"/>
+        <xacro:property name="wheel_Ixx" value="0.000863585"/>
+        <xacro:property name="wheel_Ixy" value="0.0"/>
+        <xacro:property name="wheel_Ixz" value="0.0"/>
+        <xacro:property name="wheel_Iyy" value="0.000863585"/>
+        <xacro:property name="wheel_Iyz" value="0.0"/>
+        <xacro:property name="wheel_Izz" value="0.001586256"/>
+        <xacro:property name="radius" value="0.0762"/>
+        <xacro:property name="length" value="0.045"/>
+
+        <joint name="${prefix}_wheel_joint" type="continuous">
+            <parent link="${parent}"/>
+            <child link="${prefix}_wheel"/>
+            <xacro:insert_block name="origin" />
+            <axis xyz="0 0 -1" rpy="0 0 0" />
+            <limit effort="100" velocity="1000"/>
+            <joint_properties damping="0.0" friction="1.0"/>
+        </joint>
+
+        <link name="${prefix}_wheel">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <xacro:if value="${reflect}">
+                <geometry>
+                    <mesh filename="package://mecanum_robot_description/meshes/mecanum_left.stl" scale="0.001 0.001 0.001" />
+                </geometry>
+                <material name="grey">
+                    <color rgba="0.75 0.75 0.75 1.0"/>    
+                </material>
+                </xacro:if>
+                <xacro:unless value="${reflect}">
+                <geometry>
+                    <mesh filename="package://mecanum_robot_description/meshes/mecanum_right.stl" scale="0.001 0.001 0.001" />
+                </geometry>
+                <material name="grey">
+                    <color rgba="0.75 0.75 0.75 1.0"/>    
+                </material>
+                </xacro:unless>
+            </visual>
+
+            <collision>
+            <xacro:if value="${reflect}">
+                <geometry>
+                    <cylinder length="${length}" radius="${radius}"/>
+                    <!--mesh filename="package://omni_manipulator/meshes/mecanum_left.stl" scale="0.001 0.001 0.001" /!-->
+                </geometry>
+                </xacro:if>
+                <xacro:unless value="${reflect}">
+                <geometry>
+                    <cylinder length="${length}" radius="${radius}"/>
+                    <!--mesh filename="package://omni_manipulator/meshes/mecanum_right.stl" scale="0.001 0.001 0.001" /!-->
+                    </geometry>
+                </xacro:unless>
+            </collision>
+
+            <inertial>
+                <mass value="${wheel_mass}" />
+                <origin xyz="0 0 0" />
+                <inertia ixx="${wheel_Ixx}" ixy="${wheel_Ixy}" ixz="${wheel_Ixz}" iyy="${wheel_Iyy}" iyz="${wheel_Iyz}" izz="${wheel_Izz}"/>
+            </inertial>
+        </link>
+
+        <!-- Transmission is important to link the joints and the controller (see summit_xl_control/config/summit_xl_control.yaml)-->
+        <transmission name="${prefix}_wheel_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_wheel_joint" >
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_wheel_motor">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+
+        <gazebo reference="${prefix}_wheel">
+            <mu1>1.0</mu1>
+            <mu2>1.0</mu2> 
+            <kp>1e+13</kp>
+            <kd>1.0</kd>
+            <!-- <maxVel>0.001</maxVel> -->
+            <!-- <minDepth>0.00000000001</minDepth> -->
+            <!-- <turnGravityOff>true</turnGravityOff> -->
+            <!-- <gravity>1</gravity> -->
+            <material>Gazebo/DarkGrey</material>
+        </gazebo>
+
+    </xacro:macro>
+</robot>

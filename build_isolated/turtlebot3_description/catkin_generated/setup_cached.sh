@@ -9,4 +9,4 @@
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/yang/workspace/Mecanum-robot-slam-gazebo/devel_isolated/turtlebot3_description:$CMAKE_PREFIX_PATH"
 export ROSLISP_PACKAGE_DIRECTORIES='/home/yang/workspace/Mecanum-robot-slam-gazebo/devel_isolated/turtlebot3_description/share/common-lisp'
-export ROS_PACKAGE_PATH="/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_description:$ROS_PACKAGE_PATH"
+export ROS_PACKAGE_PATH="/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_description:$ROS_PACKAGE_PATH"

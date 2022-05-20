@@ -46,7 +46,7 @@ endmacro()
 
 set_and_check(CARTOGRAPHER_CMAKE_DIR "${PACKAGE_PREFIX_DIR}/share/cartographer/cmake")
 
-set(CERES_DIR_HINTS /usr/lib/cmake/Ceres)
+set(CERES_DIR_HINTS /usr/local/lib/cmake/Ceres)
 set(CARTOGRAPHER_HAS_GRPC OFF)
 
 if (cartographer_FIND_QUIETLY)

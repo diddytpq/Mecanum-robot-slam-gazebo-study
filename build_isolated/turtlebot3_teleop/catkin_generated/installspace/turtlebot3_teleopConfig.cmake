@@ -67,7 +67,7 @@ set(turtlebot3_teleop_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(turtlebot3_teleop_SOURCE_PREFIX /home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_teleop)
+  set(turtlebot3_teleop_SOURCE_PREFIX /home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_teleop)
   set(turtlebot3_teleop_DEVEL_PREFIX /home/yang/workspace/Mecanum-robot-slam-gazebo/devel_isolated/turtlebot3_teleop)
   set(turtlebot3_teleop_INSTALL_PREFIX "")
   set(turtlebot3_teleop_PREFIX ${turtlebot3_teleop_DEVEL_PREFIX})

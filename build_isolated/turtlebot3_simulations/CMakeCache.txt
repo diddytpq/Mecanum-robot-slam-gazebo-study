@@ -420,7 +420,7 @@ gtest_main_LIB_DEPENDS:STATIC=general;gtest;
 turtlebot3_simulations_BINARY_DIR:STATIC=/home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/turtlebot3_simulations
 
 //Value Computed by CMake
-turtlebot3_simulations_SOURCE_DIR:STATIC=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_simulations
+turtlebot3_simulations_SOURCE_DIR:STATIC=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_simulations
 
 
 ########################
@@ -516,7 +516,7 @@ CMAKE_HAVE_PTHREAD_CREATE:INTERNAL=1
 CMAKE_HAVE_PTHREAD_H:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
-CMAKE_HOME_DIRECTORY:INTERNAL=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_simulations
+CMAKE_HOME_DIRECTORY:INTERNAL=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_simulations
 //ADVANCED property for variable: CMAKE_INSTALL_BINDIR
 CMAKE_INSTALL_BINDIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_INSTALL_DATADIR

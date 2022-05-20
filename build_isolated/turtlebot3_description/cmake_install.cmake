@@ -1,4 +1,4 @@
-# Install script for directory: /home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_description
+# Install script for directory: /home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_description
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -140,14 +140,14 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_description" TYPE FILE FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_description/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_description" TYPE FILE FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_description/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_description" TYPE DIRECTORY FILES
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_description/meshes"
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_description/rviz"
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_description/urdf"
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_description/meshes"
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_description/rviz"
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_description/urdf"
     )
 endif()
 

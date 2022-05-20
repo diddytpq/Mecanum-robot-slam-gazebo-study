@@ -1,4 +1,4 @@
-# Install script for directory: /home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_slam
+# Install script for directory: /home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_slam
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -140,7 +140,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_slam" TYPE FILE FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_slam/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_slam" TYPE FILE FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_slam/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -164,15 +164,15 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/turtlebot3_slam" TYPE DIRECTORY FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_slam/include/turtlebot3_slam/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/turtlebot3_slam" TYPE DIRECTORY FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_slam/include/turtlebot3_slam/")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_slam" TYPE DIRECTORY FILES
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_slam/bag"
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_slam/config"
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_slam/launch"
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_slam/rviz"
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_slam/bag"
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_slam/config"
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_slam/launch"
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_slam/rviz"
     )
 endif()
 

@@ -54,9 +54,9 @@ endif()
 add_library(cartographer STATIC IMPORTED)
 
 set_target_properties(cartographer PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/usr/include/eigen3;/usr/include;/usr/include/eigen3;/usr/include;/usr/include/lua5.2;/usr/include;/usr/include;${_IMPORT_PREFIX}/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/usr/include/eigen3;/usr/local/include;/usr/include/eigen3;/usr/include;/usr/include/lua5.2;/usr/include;/usr/include;${_IMPORT_PREFIX}/include"
   INTERFACE_LINK_LIBRARIES "ceres;/usr/lib/x86_64-linux-gnu/liblua5.2.so;/usr/lib/x86_64-linux-gnu/libm.so;Boost::iostreams;glog;gflags;cairo;/usr/lib/x86_64-linux-gnu/libprotobuf.so;absl::algorithm;absl::base;absl::debugging;absl::flat_hash_map;absl::memory;absl::meta;absl::numeric;absl::str_format;absl::strings;absl::synchronization;absl::time;absl::utility;pthread"
-  INTERFACE_SYSTEM_INCLUDE_DIRECTORIES "/usr/include/eigen3;/usr/include;/usr/include/eigen3;/usr/include;/usr/include/lua5.2;/usr/include;/usr/include"
+  INTERFACE_SYSTEM_INCLUDE_DIRECTORIES "/usr/include/eigen3;/usr/local/include;/usr/include/eigen3;/usr/include;/usr/include/lua5.2;/usr/include;/usr/include"
 )
 
 if(CMAKE_VERSION VERSION_LESS 2.8.12)

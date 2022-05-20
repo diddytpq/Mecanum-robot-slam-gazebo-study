@@ -67,7 +67,7 @@ set(turtlebot3_slam_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(turtlebot3_slam_SOURCE_PREFIX /home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_slam)
+  set(turtlebot3_slam_SOURCE_PREFIX /home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_slam)
   set(turtlebot3_slam_DEVEL_PREFIX /home/yang/workspace/Mecanum-robot-slam-gazebo/devel_isolated/turtlebot3_slam)
   set(turtlebot3_slam_INSTALL_PREFIX "")
   set(turtlebot3_slam_PREFIX ${turtlebot3_slam_DEVEL_PREFIX})

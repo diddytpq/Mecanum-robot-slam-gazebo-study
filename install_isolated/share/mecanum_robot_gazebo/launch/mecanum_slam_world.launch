@@ -1,0 +1,51 @@
+<launch>
+  <arg name="model" default="mecanum" />
+  <arg name="x_pos" default="-3.0"/>
+  <arg name="y_pos" default="1.0"/>
+  <arg name="z_pos" default="0.0"/>
+  <arg name="world_name" default="house" />
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find mecanum_robot_gazebo)/worlds/$(arg world_name).world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- Load the URDF into ROS parameter server -->
+  <param name="robot_description" command="$(find xacro)/xacro  '$(find mecanum_robot_description)/urdf/mecanum_robot/mecanum.urdf.xacro'"/>
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -x $(arg x_pos) -y $(arg y_pos)  -z $(arg z_pos)   -model mecanum -param robot_description"/>
+  
+  <!-- Run controller utils -->
+  <rosparam file="$(find  mecanum_robot_gazebo)/config/joint_state_controller.yaml" command="load"/>
+  <rosparam file="$(find  mecanum_robot_gazebo)/config/mecanum.yaml" command="load"/>
+
+
+  <!-- ros_control robotis manipulator launch file -->
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/mecanum" args="joint_state_controller 
+                                        wheel_1_controller 
+                                        wheel_2_controller 
+                                        wheel_3_controller 
+                                        wheel_4_controller"/>
+
+  <node name="mecanum_control_keyboard" pkg="mecanum_robot_gazebo"  type="keyborad_control_sim.py" output="screen"/>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <!-- Publish joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="50.0" />
+    <param name="tf_prefix" value=""/>
+    <remap from="/joint_states" to="/mecanum/joint_states" />
+  </node>
+  
+
+</launch>

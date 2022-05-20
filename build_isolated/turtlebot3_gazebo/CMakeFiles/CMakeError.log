@@ -1,11 +1,11 @@
 Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
 Change Dir: /home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/turtlebot3_gazebo/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/ninja cmTC_8de65 && [1/2] Building C object CMakeFiles/cmTC_8de65.dir/src.c.o
-[2/2] Linking C executable cmTC_8de65
-FAILED: cmTC_8de65 
-: && /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -rdynamic CMakeFiles/cmTC_8de65.dir/src.c.o  -o cmTC_8de65   && :
-/usr/bin/ld: CMakeFiles/cmTC_8de65.dir/src.c.o: in function `main':
+Run Build Command(s):/usr/bin/ninja cmTC_7bd51 && [1/2] Building C object CMakeFiles/cmTC_7bd51.dir/src.c.o
+[2/2] Linking C executable cmTC_7bd51
+FAILED: cmTC_7bd51 
+: && /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -rdynamic CMakeFiles/cmTC_7bd51.dir/src.c.o  -o cmTC_7bd51   && :
+/usr/bin/ld: CMakeFiles/cmTC_7bd51.dir/src.c.o: in function `main':
 src.c:(.text+0x46): undefined reference to `pthread_create'
 /usr/bin/ld: src.c:(.text+0x52): undefined reference to `pthread_detach'
 /usr/bin/ld: src.c:(.text+0x63): undefined reference to `pthread_join'
@@ -36,10 +36,10 @@ int main(void)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/turtlebot3_gazebo/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/ninja cmTC_ba8d1 && [1/2] Building C object CMakeFiles/cmTC_ba8d1.dir/CheckFunctionExists.c.o
-[2/2] Linking C executable cmTC_ba8d1
-FAILED: cmTC_ba8d1 
-: && /usr/bin/cc -DCHECK_FUNCTION_EXISTS=pthread_create  -rdynamic CMakeFiles/cmTC_ba8d1.dir/CheckFunctionExists.c.o  -o cmTC_ba8d1  -lpthreads && :
+Run Build Command(s):/usr/bin/ninja cmTC_70106 && [1/2] Building C object CMakeFiles/cmTC_70106.dir/CheckFunctionExists.c.o
+[2/2] Linking C executable cmTC_70106
+FAILED: cmTC_70106 
+: && /usr/bin/cc -DCHECK_FUNCTION_EXISTS=pthread_create  -rdynamic CMakeFiles/cmTC_70106.dir/CheckFunctionExists.c.o  -o cmTC_70106  -lpthreads && :
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
 ninja: build stopped: subcommand failed.

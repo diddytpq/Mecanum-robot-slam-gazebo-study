@@ -510,7 +510,7 @@ tf_DIR:PATH=/opt/ros/noetic/share/tf/cmake
 turtlebot3_fake_BINARY_DIR:STATIC=/home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/turtlebot3_fake
 
 //Value Computed by CMake
-turtlebot3_fake_SOURCE_DIR:STATIC=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_fake
+turtlebot3_fake_SOURCE_DIR:STATIC=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_fake
 
 //The directory containing a CMake configuration file for turtlebot3_msgs.
 turtlebot3_msgs_DIR:PATH=/opt/ros/noetic/share/turtlebot3_msgs/cmake
@@ -612,7 +612,7 @@ CMAKE_HAVE_PTHREAD_CREATE:INTERNAL=1
 CMAKE_HAVE_PTHREAD_H:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
-CMAKE_HOME_DIRECTORY:INTERNAL=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_fake
+CMAKE_HOME_DIRECTORY:INTERNAL=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_fake
 //ADVANCED property for variable: CMAKE_INSTALL_BINDIR
 CMAKE_INSTALL_BINDIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_INSTALL_DATADIR

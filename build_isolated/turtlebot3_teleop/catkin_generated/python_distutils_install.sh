@@ -13,7 +13,7 @@ fi
 
 echo_and_run() { echo "+ $@" ; "$@" ; }
 
-echo_and_run cd "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_teleop"
+echo_and_run cd "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_teleop"
 
 # ensure that Python install destination exists
 echo_and_run mkdir -p "$DESTDIR/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/lib/python3/dist-packages"
@@ -25,7 +25,7 @@ echo_and_run /usr/bin/env \
     PYTHONPATH="/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/lib/python3/dist-packages:/home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/turtlebot3_teleop/lib/python3/dist-packages:$PYTHONPATH" \
     CATKIN_BINARY_DIR="/home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/turtlebot3_teleop" \
     "/usr/bin/python3" \
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_teleop/setup.py" \
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_teleop/setup.py" \
      \
     build --build-base "/home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/turtlebot3_teleop" \
     install \

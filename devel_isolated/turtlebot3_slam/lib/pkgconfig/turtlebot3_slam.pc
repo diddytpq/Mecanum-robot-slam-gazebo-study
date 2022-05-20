@@ -3,6 +3,6 @@ prefix=/home/yang/workspace/Mecanum-robot-slam-gazebo/devel_isolated/turtlebot3_
 Name: turtlebot3_slam
 Description: Description of turtlebot3_slam
 Version: 1.2.6
-Cflags: -I/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_slam/include
+Cflags: -I/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_slam/include
 Libs: -L${prefix}/lib 
 Requires: roscpp sensor_msgs

@@ -1,19 +1,21 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Cartographer &#8212; Cartographer  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,8 +30,7 @@
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Cartographer  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Cartographer</a></li> 
+        <li class="nav-item nav-item-0"><a href="#">Cartographer  documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -38,30 +39,30 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="cartographer">
+  <div class="section" id="cartographer">
 <h1>Cartographer<a class="headerlink" href="#cartographer" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <p><a class="reference external" href="https://github.com/cartographer-project/cartographer">Cartographer</a> is a system that provides real-time simultaneous localization
 and mapping (<a class="reference external" href="https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping">SLAM</a>) in 2D and 3D across multiple platforms and sensor
 configurations.</p>
-<section id="technical-overview">
+<div class="section" id="technical-overview">
 <h2>Technical Overview<a class="headerlink" href="#technical-overview" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>High level system overview of Cartographer</p></li>
+<li>High level system overview of Cartographer</li>
 </ul>
 <a class="reference external image-reference" href="https://github.com/cartographer-project/cartographer/blob/master/docs/source/high_level_system_overview.png"><img alt="_images/high_level_system_overview.png" src="_images/high_level_system_overview.png" /></a>
-</section>
-<section id="getting-started">
+</div>
+<div class="section" id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <p>Cartographer is a standalone C++ library. To get started quickly, use our <a class="reference external" href="http://www.ros.org">ROS</a> integration.</p>
-<section id="getting-started-with-ros">
+<div class="section" id="getting-started-with-ros">
 <h3>Getting started with ROS<a class="headerlink" href="#getting-started-with-ros" title="Permalink to this headline">¶</a></h3>
 <p>ROS integration is provided by the <a class="reference external" href="https://github.com/cartographer-project/cartographer_ros">Cartographer ROS repository</a>. You will find
 complete documentation for using Cartographer with ROS at the
 <a class="reference external" href="https://google-cartographer-ros.readthedocs.io">Cartographer ROS Read the Docs site</a>.</p>
-</section>
-<section id="getting-started-without-ros">
+</div>
+<div class="section" id="getting-started-without-ros">
 <h3>Getting started without ROS<a class="headerlink" href="#getting-started-without-ros" title="Permalink to this headline">¶</a></h3>
 <p>Please see our ROS integration as a starting point for integrating your system
 with the standalone library. Currently, it is the best available reference.</p>
@@ -157,27 +158,27 @@ ninja
 sudo ninja install
 </pre></div>
 </div>
-</section>
-</section>
-<section id="system-requirements">
+</div>
+</div>
+<div class="section" id="system-requirements">
 <span id="id2"></span><h2>System Requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h2>
 <p>Although Cartographer may run on other systems, it is confirmed to be working
 on systems that meet the following requirements:</p>
 <ul class="simple">
-<li><p>64-bit, modern CPU (e.g. 3rd generation i7)</p></li>
-<li><p>16 GB RAM</p></li>
-<li><p>Ubuntu 18.04 (Bionic), 20.04 (Focal)</p></li>
-<li><p>gcc version 6.3.0, 7.5.0, 9.3.0</p></li>
+<li>64-bit, modern CPU (e.g. 3rd generation i7)</li>
+<li>16 GB RAM</li>
+<li>Ubuntu 18.04 (Bionic), 20.04 (Focal)</li>
+<li>gcc version 6.3.0, 7.5.0, 9.3.0</li>
 </ul>
-<section id="known-issues">
+<div class="section" id="known-issues">
 <h3>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>32-bit builds have libeigen alignment problems which cause crashes and/or
-memory corruptions.</p></li>
+<li>32-bit builds have libeigen alignment problems which cause crashes and/or
+memory corruptions.</li>
 </ul>
-</section>
-</section>
-<section id="how-to-cite-us">
+</div>
+</div>
+<div class="section" id="how-to-cite-us">
 <h2>How to cite us<a class="headerlink" href="#how-to-cite-us" title="Permalink to this headline">¶</a></h2>
 <p>Background about the algorithms developed for Cartographer can be found in the
 following publication. If you use Cartographer for your research, we would
@@ -186,11 +187,10 @@ appreciate it if you cite our paper.</p>
 <a class="reference external" href="https://research.google.com/pubs/pub45466.html">Real-Time Loop Closure in 2D LIDAR SLAM</a>, in
 <em>Robotics and Automation (ICRA), 2016 IEEE International Conference on</em>.
 IEEE, 2016. pp. 1271–1278.</p>
-</section>
-</section>
+</div>
+</div>
 
 
-            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -225,15 +225,17 @@ IEEE, 2016. pp. 1271–1278.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+  <h3>Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -247,13 +249,12 @@ IEEE, 2016. pp. 1271–1278.</p>
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Cartographer  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Cartographer</a></li> 
+        <li class="nav-item nav-item-0"><a href="#">Cartographer  documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2022 The Cartographer Authors.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

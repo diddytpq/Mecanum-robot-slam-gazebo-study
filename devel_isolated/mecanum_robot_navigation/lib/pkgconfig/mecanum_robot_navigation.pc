@@ -1,0 +1,8 @@
+prefix=/home/yang/workspace/Mecanum-robot-slam-gazebo/devel_isolated/mecanum_robot_navigation
+
+Name: mecanum_robot_navigation
+Description: Description of mecanum_robot_navigation
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

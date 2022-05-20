@@ -1,19 +1,21 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Evaluation &#8212; Cartographer  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -32,8 +34,7 @@
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Cartographer  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Evaluation</a></li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Cartographer  documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -42,28 +43,28 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="evaluation">
+  <div class="section" id="evaluation">
 <h1>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h1>
 <p>Performing evaluation is a crucial part of developing a SLAM system.
 For this purpose, Cartographer offers built-in tools that can aid the tuning process or can be used for quality assurance purposes.</p>
 <p>These tools can be used to assess the SLAM result even when no dedicated ground truth is available.
-This is in contrast to public SLAM benchmarks like e.g the KITTI dataset <a class="footnote-reference brackets" href="#id4" id="id1">1</a> or the TUM RGB-D dataset <a class="footnote-reference brackets" href="#id5" id="id2">2</a>, where highly-precise ground truth states (GPS-RTK, motion capture) are available as a reference.</p>
-<section id="concept">
+This is in contrast to public SLAM benchmarks like e.g the KITTI dataset <a class="footnote-reference" href="#id4" id="id1">[1]</a> or the TUM RGB-D dataset <a class="footnote-reference" href="#id5" id="id2">[2]</a>, where highly-precise ground truth states (GPS-RTK, motion capture) are available as a reference.</p>
+<div class="section" id="concept">
 <h2>Concept<a class="headerlink" href="#concept" title="Permalink to this headline">¶</a></h2>
 <p>The process comprises two steps:</p>
 <ol class="arabic simple">
-<li><p>auto-generation of “ground truth” relations</p></li>
-<li><p>evaluation of the test data against the generated ground truth</p></li>
+<li>auto-generation of “ground truth” relations</li>
+<li>evaluation of the test data against the generated ground truth</li>
 </ol>
-<p>The evaluation is based on the pose relations metric proposed in <a class="footnote-reference brackets" href="#id6" id="id3">3</a>.
+<p>The evaluation is based on the pose relations metric proposed in <a class="footnote-reference" href="#id6" id="id3">[3]</a>.
 Rather than comparing the pose of a trajectory node directly to the corresponding ground truth pose, it compares the relative poses between two trajectory nodes in the probe data to the corresponding relation of two trajectory nodes in the ground truth trajectory.</p>
 <p>In Cartographer, we can generate such ground truth relations from trajectories with loop closures.
 Let an optimized trajectory with loop closures be the input for the ground truth generation.
 We select the relations from loop closure constraints that satisfy the following criteria:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">min_covered_distance</span></code>: Minimum covered distance in meters before a loop closure is considered a candidate for autogenerated ground truth.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">outlier_threshold_meters</span></code>: Distance in meters beyond which constraints are considered outliers.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">outlier_threshold_radians</span></code>: Distance in radians beyond which constraints are considered outliers.</p></li>
+<li><code class="docutils literal notranslate"><span class="pre">min_covered_distance</span></code>: Minimum covered distance in meters before a loop closure is considered a candidate for autogenerated ground truth.</li>
+<li><code class="docutils literal notranslate"><span class="pre">outlier_threshold_meters</span></code>: Distance in meters beyond which constraints are considered outliers.</li>
+<li><code class="docutils literal notranslate"><span class="pre">outlier_threshold_radians</span></code>: Distance in radians beyond which constraints are considered outliers.</li>
 </ul>
 <p>We can assume the pose relations of neighboring trajectory nodes fulfilling these requirements to be locally correct in a fully optimized trajectory.
 Although this is not a ground truth in the sense of an independent input from another source, we can now use it to evaluate the quality of local SLAM results that were generated without loop closure optimization.</p>
@@ -72,15 +73,15 @@ On the left side, the ground truth relations are visualized as green connections
 On the right side, the corresponding relations in a non-optimized trajectory are shown in red.</p>
 <p>The actual metric that is computed is the difference between the ground truth (green) and the probe (red) relations.</p>
 <img alt="_images/autogenerate_groundtruth.png" src="_images/autogenerate_groundtruth.png" />
-</section>
-<section id="advantages-limitations">
+</div>
+<div class="section" id="advantages-limitations">
 <h2>Advantages &amp; Limitations<a class="headerlink" href="#advantages-limitations" title="Permalink to this headline">¶</a></h2>
 <p>The first obvious advantage is the easier data collection process compared to a cumbersome ground truth setup.
 Another great advantage of this methodology is that the SLAM system can be evaluated in any custom sensor configuration (compared to public benchmarks where we are restricted to the data and the sensor configuration of the authors).</p>
 <p>However, this type of self-evaluation is not suitable for measuring the accuracy of the full SLAM system with all optimizations enabled - only an evaluation with <em>real</em> ground truth states can provide that.
 Furthermore, trajectory nodes outside of loop closure areas can’t be considered.</p>
-</section>
-<section id="how-to">
+</div>
+<div class="section" id="how-to">
 <h2>How-To<a class="headerlink" href="#how-to" title="Permalink to this headline">¶</a></h2>
 <p>Given a serialized state of a fully optimized trajectory (here: <code class="docutils literal notranslate"><span class="pre">optimized.pbstream</span></code> file), the ground truth relations can be generated with the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> &lt;build&gt;  <span class="c1"># (directory where Cartographer&#39;s binaries are located)</span>
@@ -98,32 +99,38 @@ Abs rotational error 0.11197 +/- 0.12432 deg
 Sqr rotational error 0.02799 +/- 0.07604 deg^2
 </pre></div>
 </div>
-</section>
+</div>
 <hr class="docutils" />
-<section id="references">
+<div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Andreas Geiger, Philip Lenz and Raquel Urtasun.
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Andreas Geiger, Philip Lenz and Raquel Urtasun.
 <em>Are we ready for Autonomous Driving? The KITTI Vision Benchmark Suite</em>.
-CVPR, 2012.</p>
-</dd>
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>Jürgen Sturm, Nikolas Engelhard, Felix Endres, Wolfram Burgard and Daniel Cremers.
+CVPR, 2012.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Jürgen Sturm, Nikolas Engelhard, Felix Endres, Wolfram Burgard and Daniel Cremers.
 <em>A Benchmark for the Evaluation of RGB-D SLAM Systems</em>.
-IROS, 2012.</p>
-</dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p>Rainer Kümmerle, Bastian Steder, Christian Dornhege, Michael Ruhnke, Giorgio Grisetti, Cyrill Stachniss and Alexander Kleiner.
+IROS, 2012.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>Rainer Kümmerle, Bastian Steder, Christian Dornhege, Michael Ruhnke, Giorgio Grisetti, Cyrill Stachniss and Alexander Kleiner.
 <em>On measuring the accuracy of SLAM algorithms.</em>
-Autonomous Robots 27(4), pp.387-407, 2009.</p>
-</dd>
-</dl>
-</section>
-</section>
+Autonomous Robots 27(4), pp.387-407, 2009.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
 
 
-            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -154,15 +161,17 @@ Autonomous Robots 27(4), pp.387-407, 2009.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+  <h3>Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -179,13 +188,12 @@ Autonomous Robots 27(4), pp.387-407, 2009.</p>
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Cartographer  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Evaluation</a></li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Cartographer  documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2022 The Cartographer Authors.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

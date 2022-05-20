@@ -118,7 +118,7 @@ rule CXX_SHARED_LIBRARY_LINKER__gtest
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /usr/bin/cmake -S/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_fake -B/home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/turtlebot3_fake
+  command = /usr/bin/cmake -S/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_fake -B/home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/turtlebot3_fake
   description = Re-running CMake...
   generator = 1
 

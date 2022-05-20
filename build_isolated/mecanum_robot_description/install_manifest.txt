@@ -11,3 +11,15 @@
 /home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/cmake/mecanum_robot_descriptionConfig.cmake
 /home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/cmake/mecanum_robot_descriptionConfig-version.cmake
 /home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/package.xml
+/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/meshes/mecanum_right.stl
+/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/meshes/sensors/lds.stl
+/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/meshes/sensors/astra.dae
+/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/meshes/sensors/astra.jpg
+/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/meshes/sensors/r200.dae
+/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/meshes/sensors/r200.jpg
+/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/meshes/frame_c.stl
+/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/meshes/mecanum_left.stl
+/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/urdf/mecanum_robot/mecanum.gazebo.xacro
+/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/urdf/mecanum_robot/mecanum_frame.urdf.xacro
+/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/urdf/mecanum_robot/mecanum.urdf.xacro
+/home/yang/workspace/Mecanum-robot-slam-gazebo/install_isolated/share/mecanum_robot_description/urdf/mecanum_robot/cycloid_gear_mecanum_wheel.urdf.xacro

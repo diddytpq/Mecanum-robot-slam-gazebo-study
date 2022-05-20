@@ -456,7 +456,7 @@ std_msgs_DIR:PATH=/opt/ros/noetic/share/std_msgs/cmake
 turtlebot3_slam_BINARY_DIR:STATIC=/home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/turtlebot3_slam
 
 //Value Computed by CMake
-turtlebot3_slam_SOURCE_DIR:STATIC=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_slam
+turtlebot3_slam_SOURCE_DIR:STATIC=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_slam
 
 //The directory containing a CMake configuration file for xmlrpcpp.
 xmlrpcpp_DIR:PATH=/opt/ros/noetic/share/xmlrpcpp/cmake
@@ -555,7 +555,7 @@ CMAKE_HAVE_PTHREAD_CREATE:INTERNAL=1
 CMAKE_HAVE_PTHREAD_H:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
-CMAKE_HOME_DIRECTORY:INTERNAL=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_slam
+CMAKE_HOME_DIRECTORY:INTERNAL=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_slam
 //ADVANCED property for variable: CMAKE_INSTALL_BINDIR
 CMAKE_INSTALL_BINDIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_INSTALL_DATADIR

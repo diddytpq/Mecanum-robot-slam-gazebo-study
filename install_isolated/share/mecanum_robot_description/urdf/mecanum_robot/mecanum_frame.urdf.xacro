@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot_frame">
+	<xacro:include filename="$(find mecanum_robot_description)/urdf/mecanum_robot/cycloid_gear_mecanum_wheel.urdf.xacro" />
+
+  <xacro:property name="base_offset" value="0.19458"/> <!-- 0.193608 !-->
+  
+  <xacro:property name="wheel_mass" value="0.456"/>
+  <xacro:property name="wheel_Ixx" value="0.000863585"/>
+  <xacro:property name="wheel_Ixy" value="0.0"/>
+  <xacro:property name="wheel_Ixz" value="0.0"/>
+  <xacro:property name="wheel_Iyy" value="0.000863585"/>
+  <xacro:property name="wheel_Iyz" value="0.0"/>
+  <xacro:property name="wheel_Izz" value="0.001586256"/>
+  <xacro:property name="radius" value="0.0762"/>
+  <xacro:property name="length" value="0.045"/>
+
+  <xacro:macro name="mecanum_robot">
+        <!--xacro:include filename="$(find mecanum_robot_description)/urdf/omni_manipulator.gazebo.xacro" /!-->
+    <link name="base_footprint">
+		  <visual>
+			  <origin xyz="0 0 0" rpy="0 0 0" />
+			  <geometry>
+				 <box size="0.001 0.001 0.001" />
+			  </geometry>
+		  </visual>
+		</link>
+
+		<joint name="base_footprint_joint" type="fixed">
+		  <origin xyz="0 0 ${base_offset}" rpy="0 0 0" /> <!-- ${wheel_radius} property must be defined inside wheel description -->
+		  <parent link="base_footprint"/>
+		  <child link="base_link" />
+		</joint>
+
+        <link name="base_link">
+            <visual>
+              <origin xyz="0.0 0.0 0.0" rpy="${pi/2} 0.0 ${-pi/2}"/> <!--xyz="0.0 0.0 0.0" rpy="${pi/2} 0.0 ${-pi/2}" -->
+                <geometry>
+                    <mesh filename="package://mecanum_robot_description/meshes/frame_c.stl" scale="0.001 0.001 0.001"/>         
+                </geometry>
+                <material name="white">
+                    <color rgba="1.0 1.0 1.0 1.0"/>    
+                </material>
+            </visual>
+            <collision>
+              <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <box size="0.64 0.598 0.2"/>
+                    <!--mesh filename="package://omni_manipulator/meshes/frame_c.stl" scale="0.001 0.001 0.001"/!-->       
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="50.781" /> <!--20.781-->
+                <origin xyz="0.0 0.0 0.0" rpy="${pi/2} 0.0 ${-pi/2}"/>
+                <inertia ixx="3.9866734999999998" ixy="9.6705e-05"  ixz="0.000248215"  iyy="6.32225"  iyz="0.00284912"  izz="2.6884815" />
+            </inertial>
+        </link>
+
+        <joint name="scan_joint" type="fixed">
+            <parent link="base_link"/>
+            <child link="base_scan"/>
+            <origin xyz="0 0 0.15" rpy="0 0 0"/>
+        </joint>
+
+        <link name="base_scan">
+            <visual>
+              <origin xyz="0 0 0" rpy="0 0 0"/>
+              <geometry>
+                <mesh filename="package://mecanum_robot_description/meshes/sensors/lds.stl" scale="0.001 0.001 0.001"/>
+              </geometry>
+            </visual>
+        
+            <collision>
+              <origin xyz="0.015 0 -0.0065" rpy="0 0 0"/>
+              <geometry>
+                <cylinder length="0.0315" radius="0.055"/>
+              </geometry>
+            </collision>
+        
+            <inertial>
+              <mass value="0.114" />
+              <origin xyz="0 0 0" />
+              <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+                       iyy="0.001" iyz="0.0"
+                       izz="0.001" />
+            </inertial>
+        </link>
+    
+        <joint name="camera_joint" type="fixed">
+            <parent link="base_link"/>
+            <child link="camera_link"/>
+            <origin xyz="0.25 -0.08 0" rpy="0 0 0"/>
+        </joint>
+
+        <link name="camera_link">
+            <visual>
+             <origin xyz="0 0 0" rpy="1.57 0 1.57"/>
+              <geometry>
+               <mesh filename="package://turtlebot3_description/meshes/sensors/r200.dae" />
+              </geometry>
+            </visual>
+            <collision>
+              <origin xyz="0.003 0.065 0.007" rpy="0 0 0"/>
+              <geometry>
+                <box size="0.012 0.132 0.020"/>
+              </geometry>
+            </collision>
+        </link>
+
+        <joint name="imu_joint" type="fixed">
+          <parent link="base_link"/>
+          <child link="imu_link"/>
+          <origin xyz="0.0 0.0 0.10" rpy="0 0 0"/>
+        </joint>
+
+        <link name="imu_link"/>
+
+
+    </xacro:macro>
+</robot>

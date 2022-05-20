@@ -1,0 +1,36 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="model" default="mecanum"/>
+  <arg name="multi_robot_name" default=""/>
+  <arg name="map_file" default="$(find mecanum_robot_slam)/maps/house/map.yaml"/>
+  <arg name="configuration_basename" default="turtlebot3_lds_2d.lua"/>
+  <arg name="open_rviz" default="true"/>
+
+  <arg name="init_x_robot_pose" default="-3"/>
+  <arg name="init_y_robot_pose" default="1"/>
+  <arg name="init_a_robot_pose" default="0"/>
+
+
+  <arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find mecanum_robot_description)/urdf/mecanum_robot/mecanum.urdf.xacro'" />
+  <param name="robot_description" command="$(arg urdf_file)" />
+
+
+  <!-- Map server -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+
+  <!-- AMCL -->
+  <include file="$(find mecanum_robot_slam)/launch/amcl.launch">
+    <arg name="initial_pose_x" value="$(arg init_x_robot_pose)"/>
+    <arg name="initial_pose_y" value="$(arg init_y_robot_pose)"/>
+    <arg name="initial_pose_a" value="$(arg init_a_robot_pose)"/>
+
+
+  </include>
+
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find mecanum_robot_slam)/rviz/mecanum_localization.rviz"/>
+  </group>
+
+</launch>

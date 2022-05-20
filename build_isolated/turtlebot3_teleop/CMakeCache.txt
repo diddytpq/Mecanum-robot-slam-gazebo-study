@@ -447,7 +447,7 @@ std_msgs_DIR:PATH=/opt/ros/noetic/share/std_msgs/cmake
 turtlebot3_teleop_BINARY_DIR:STATIC=/home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/turtlebot3_teleop
 
 //Value Computed by CMake
-turtlebot3_teleop_SOURCE_DIR:STATIC=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_teleop
+turtlebot3_teleop_SOURCE_DIR:STATIC=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_teleop
 
 
 ########################
@@ -543,7 +543,7 @@ CMAKE_HAVE_PTHREAD_CREATE:INTERNAL=1
 CMAKE_HAVE_PTHREAD_H:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
-CMAKE_HOME_DIRECTORY:INTERNAL=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot3_teleop
+CMAKE_HOME_DIRECTORY:INTERNAL=/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_teleop
 //ADVANCED property for variable: CMAKE_INSTALL_BINDIR
 CMAKE_INSTALL_BINDIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_INSTALL_DATADIR

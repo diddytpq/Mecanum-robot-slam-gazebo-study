@@ -143,6 +143,20 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mecanum_robot_slam" TYPE FILE FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/package.xml")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/mecanum_robot_slam" TYPE DIRECTORY FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/include/mecanum_robot_slam/")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mecanum_robot_slam" TYPE DIRECTORY FILES
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/config"
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/launch"
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/rviz"
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/maps"
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/src"
+    )
+endif()
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/mecanum_robot_slam/gtest/cmake_install.cmake")

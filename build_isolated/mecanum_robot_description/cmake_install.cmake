@@ -143,6 +143,13 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mecanum_robot_description" TYPE FILE FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_description/package.xml")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mecanum_robot_description" TYPE DIRECTORY FILES
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_description/meshes"
+    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_description/urdf"
+    )
+endif()
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/yang/workspace/Mecanum-robot-slam-gazebo/build_isolated/mecanum_robot_description/gtest/cmake_install.cmake")
