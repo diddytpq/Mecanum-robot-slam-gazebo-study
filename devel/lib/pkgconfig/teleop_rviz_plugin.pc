@@ -1,0 +1,8 @@
+prefix=/home/yang/workspace/Mecanum-robot-slam-gazebo/devel
+
+Name: teleop_rviz_plugin
+Description: Description of teleop_rviz_plugin
+Version: 0.0.1
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

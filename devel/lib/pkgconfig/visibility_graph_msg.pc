@@ -1,0 +1,8 @@
+prefix=/home/yang/workspace/Mecanum-robot-slam-gazebo/devel
+
+Name: visibility_graph_msg
+Description: Description of visibility_graph_msg
+Version: 0.0.1
+Cflags: -I/home/yang/workspace/Mecanum-robot-slam-gazebo/devel/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime
