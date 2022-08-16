@@ -1,8 +1,0 @@
-prefix=/home/yang/workspace/Mecanum-robot-slam-gazebo/devel_isolated/mecanum_robot_slam
-
-Name: mecanum_robot_slam
-Description: Description of mecanum_robot_slam
-Version: 0.0.0
-Cflags: -I/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/include
-Libs: -L${prefix}/lib 
-Requires: roscpp sensor_msgs

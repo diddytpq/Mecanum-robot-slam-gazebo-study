@@ -1,8 +1,0 @@
-prefix=/home/yang/workspace/Mecanum-robot-slam-gazebo/devel_isolated/turtlebot3_navigation
-
-Name: turtlebot3_navigation
-Description: Description of turtlebot3_navigation
-Version: 1.2.6
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
