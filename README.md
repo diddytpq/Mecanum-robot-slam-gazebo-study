@@ -35,3 +35,10 @@ rosrun map_server map_server mymap.yaml
 roslaunch mecanum_robot_navigation mecanum_navigation.launch
 ```
 
+
+### far planner example
+```bash
+roslaunch vehicle_simulator system_campus.launch
+roslaunch far_planner far_planner.launch
+```
+
