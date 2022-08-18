@@ -1,8 +1,8 @@
-# Install script for directory: /home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam
+# Install script for directory: /home/drcl/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/yang/workspace/Mecanum-robot-slam-gazebo/install")
+  set(CMAKE_INSTALL_PREFIX "/home/drcl/workspace/Mecanum-robot-slam-gazebo/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,31 +38,31 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_slam/catkin_generated/installspace/mecanum_robot_slam.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/drcl/workspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_slam/catkin_generated/installspace/mecanum_robot_slam.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mecanum_robot_slam/cmake" TYPE FILE FILES
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_slam/catkin_generated/installspace/mecanum_robot_slamConfig.cmake"
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_slam/catkin_generated/installspace/mecanum_robot_slamConfig-version.cmake"
+    "/home/drcl/workspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_slam/catkin_generated/installspace/mecanum_robot_slamConfig.cmake"
+    "/home/drcl/workspace/Mecanum-robot-slam-gazebo/build/mecanum_robot_slam/catkin_generated/installspace/mecanum_robot_slamConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mecanum_robot_slam" TYPE FILE FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mecanum_robot_slam" TYPE FILE FILES "/home/drcl/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/mecanum_robot_slam" TYPE DIRECTORY FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/include/mecanum_robot_slam/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/mecanum_robot_slam" TYPE DIRECTORY FILES "/home/drcl/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/include/mecanum_robot_slam/")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mecanum_robot_slam" TYPE DIRECTORY FILES
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/config"
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/launch"
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/rviz"
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/maps"
-    "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/src"
+    "/home/drcl/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/config"
+    "/home/drcl/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/launch"
+    "/home/drcl/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/rviz"
+    "/home/drcl/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/maps"
+    "/home/drcl/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/src"
     )
 endif()
 

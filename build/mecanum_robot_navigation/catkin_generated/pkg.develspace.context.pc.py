@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "".split(';') if "" != "" else []
 PROJECT_CATKIN_DEPENDS = "".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "mecanum_robot_navigation"
-PROJECT_SPACE_DIR = "/home/yang/workspace/Mecanum-robot-slam-gazebo/devel"
+PROJECT_SPACE_DIR = "/home/drcl/workspace/Mecanum-robot-slam-gazebo/devel"
 PROJECT_VERSION = "0.0.0"

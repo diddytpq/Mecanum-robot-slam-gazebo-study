@@ -1,8 +1,8 @@
-# Install script for directory: /home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_simulations
+# Install script for directory: /home/drcl/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_simulations
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/yang/workspace/Mecanum-robot-slam-gazebo/install")
+  set(CMAKE_INSTALL_PREFIX "/home/drcl/workspace/Mecanum-robot-slam-gazebo/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,6 +38,6 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_simulations" TYPE FILE FILES "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_simulations/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/turtlebot3_simulations" TYPE FILE FILES "/home/drcl/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_simulations/package.xml")
 endif()
 

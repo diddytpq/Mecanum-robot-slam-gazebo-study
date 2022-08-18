@@ -3,7 +3,7 @@
   <arg name="x_pos" default="-3.0"/>
   <arg name="y_pos" default="1.0"/>
   <arg name="z_pos" default="0.0"/>
-  <arg name="world_name" default="house" />
+  <arg name="world_name" default="district" />
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find mecanum_robot_gazebo)/worlds/$(arg world_name).world"/>

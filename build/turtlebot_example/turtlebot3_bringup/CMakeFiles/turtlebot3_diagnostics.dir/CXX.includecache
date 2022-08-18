@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/yang/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_bringup/src/turtlebot3_diagnostics.cpp
+/home/drcl/workspace/Mecanum-robot-slam-gazebo/src/turtlebot_example/turtlebot3_bringup/src/turtlebot3_diagnostics.cpp
 ros/ros.h
 -
 sensor_msgs/BatteryState.h

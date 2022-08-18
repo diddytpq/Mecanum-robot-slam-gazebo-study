@@ -16,7 +16,7 @@ roslaunch mecanum_robot_gazebo mecanum_slam_world.launch
 ```
 
 
-### Gazebo simulation
+### 2D Slam simulation
 ```bash
 roslaunch mecanum_robot_slam mecanum_gmapping.launch
 

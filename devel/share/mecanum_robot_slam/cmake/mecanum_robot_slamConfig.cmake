@@ -67,14 +67,14 @@ set(mecanum_robot_slam_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(mecanum_robot_slam_SOURCE_PREFIX /home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam)
-  set(mecanum_robot_slam_DEVEL_PREFIX /home/yang/workspace/Mecanum-robot-slam-gazebo/devel)
+  set(mecanum_robot_slam_SOURCE_PREFIX /home/drcl/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam)
+  set(mecanum_robot_slam_DEVEL_PREFIX /home/drcl/workspace/Mecanum-robot-slam-gazebo/devel)
   set(mecanum_robot_slam_INSTALL_PREFIX "")
   set(mecanum_robot_slam_PREFIX ${mecanum_robot_slam_DEVEL_PREFIX})
 else()
   set(mecanum_robot_slam_SOURCE_PREFIX "")
   set(mecanum_robot_slam_DEVEL_PREFIX "")
-  set(mecanum_robot_slam_INSTALL_PREFIX /home/yang/workspace/Mecanum-robot-slam-gazebo/install)
+  set(mecanum_robot_slam_INSTALL_PREFIX /home/drcl/workspace/Mecanum-robot-slam-gazebo/install)
   set(mecanum_robot_slam_PREFIX ${mecanum_robot_slam_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(mecanum_robot_slam_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/include " STREQUAL " ")
+if(NOT "/home/drcl/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/include " STREQUAL " ")
   set(mecanum_robot_slam_INCLUDE_DIRS "")
-  set(_include_dirs "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/include")
+  set(_include_dirs "/home/drcl/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/in
         message(FATAL_ERROR "Project 'mecanum_robot_slam' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'mecanum_robot_slam' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/yang/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'mecanum_robot_slam' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/drcl/workspace/Mecanum-robot-slam-gazebo/src/mecanum_robot_slam/${idir}'.  ${_report}")
     endif()
     _list_append_unique(mecanum_robot_slam_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/yang/workspace/Mecanum-robot-slam-gazebo/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/drcl/workspace/Mecanum-robot-slam-gazebo/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

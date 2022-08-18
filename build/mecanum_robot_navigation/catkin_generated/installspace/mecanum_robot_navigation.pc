@@ -1,4 +1,4 @@
-prefix=/home/yang/workspace/Mecanum-robot-slam-gazebo/install
+prefix=/home/drcl/workspace/Mecanum-robot-slam-gazebo/install
 
 Name: mecanum_robot_navigation
 Description: Description of mecanum_robot_navigation
